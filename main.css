@@ -1,0 +1,39 @@
+main{
+    margin-top: 20px;
+    box-shadow: 0 0 20px rgb(209, 209, 209);
+    border-radius: 10px;
+}
+
+nav{
+    background: linear-gradient(90deg,rgb(152, 226, 255), rgb(183, 235, 255));
+    /* background: skyblue; */
+}
+
+body{
+}
+
+.accordion-button:not(.collapsed) {
+    color: black;
+    background: linear-gradient(90deg,rgb(152, 226, 255), rgb(183, 235, 255));
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+    border-color: rgba(0,0,0,.125);
+}
+
+
+#introtext:first-of-type::first-letter {
+    float:left;
+    font-size: 60px;
+    /* font-size: 6rem; */
+    line-height: 40px;
+    /* line-height: 4rem; */
+    height:4rem;
+    text-transform: uppercase;
+    color: rgb(152, 226, 255);
+}
+
+.text-blue{
+    color: rgb(152, 226, 255);
+}
