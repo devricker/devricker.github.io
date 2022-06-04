@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Title</title>
+    <title>ME</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -41,9 +41,9 @@
         </nav>
     </header>
 
-    <main class="container col-lg-9 col-md-10 col-sm-11 col-xs-12 p-4">
+    <main class="container p-4 col-lg-9 col-md-10 col-sm-11 col-xs-12">
 
-        <article class="p-5" id="intro">
+        <article class="" id="intro">
             <p id="introtext" style="text-align:justify; initial-letter: 4 1;">
                 Hello and welcome to my Homepage, Here I've a brief introduction of my experiences and skills, I've studied Information Technology in both B.S. and M.S. grades. As a bachelor of science, I got familiar with some programming languages and concepts like Data bases, Algorithm Design, Data structure and other basic stuff, after that I started my M.S. in IT and got some experience in machine learning and python language, and finally graduated with 17.2. After that I got involved in real life projects, including basic frontend jobs with huge amount of code including HTML, CSS, JavaScript and bootstrap. But the main thing I've been focusing on, is Python, Django web framework and some machine learning experiences. I enjoy what I've found as interest in my career path and always looking forward to do challenging projects and joining dynamic work environments.
             </p>
@@ -54,7 +54,7 @@
         
 
 
-        <div class="accordion p-5 pt-0" id="accordionSkills">
+        <div class="accordion pt-0" id="accordionSkills">
             <!-- <h1 class="text-blue">ME.SKILLS</h1> -->
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingDjango">
@@ -92,7 +92,7 @@
                                 </div>
                             </div>
 
-                            <div class="accordion-item">
+                            <!-- <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingTwo">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -115,7 +115,7 @@
                                         does limit overflow.
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingFour">
@@ -128,69 +128,18 @@
                                 <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
                                     data-bs-parent="#accordionExample">
                                     <div class="accordion-body" style="text-align: justify ;">
-                                        <!-- <strong>This is the third item's accordion body.</strong> It is hidden by default, until the
-                                        collapse plugin adds the appropriate classes that we use to style each element. These classes
-                                        control the overall appearance, as well as the showing and hiding via CSS transitions. You can
-                                        modify any of this with custom CSS or overriding our default variables. It's also worth noting
-                                        that just about any HTML can go within the <code>.accordion-body</code>, though the transition
-                                        does limit overflow.
-                
-                                        Hi, -->
-
-
                                         According to tutorials middlewares are hook to requests, and they can manipulate
                                         them, Django's
                                         SessionMiddleware and AuthenticationMiddleware are based on this concept too,
                                         they receive request
                                         and see how the user status is, and based on that observation they decide what
                                         do,
-                                        logging in, force logout, etc. Now lets create our custom middleware, create a
-                                        <strong>middleware.py</strong> file:
-                                        <br>
-                                        <code style="white-space: pre-wrap; color:rgba(221, 136, 0, 0.922);">
-                                            from django.conf import settings
-                                            class SimpleMiddleware:
-                                            def __init__(self, get_response):
-                                            self.get_response = get_response
-                                            # One-time configuration and initialization.
-                                            def __call__(self, request):
-                                            # Code to be executed for each request before
-                                            # the view (and later middleware) are called.
-                                            print("before response")
-                                            response = self.get_response(request)
-                                            print("After response")
-                                            # Code to be executed for each request/response after
-                                            # the view is called.
-                                            return response
-                                        </code>
-                                        <br>
-                                        Now in the <strong>settings.py</strong> file include the middleware.py with
-                                        proper path:
-                                        <br>
-                                        <code style="white-space: pre-wrap; color:rgba(221, 136, 0, 0.922);">
-                                            MIDDLEWARE = [
-                                            'django.middleware.security.SecurityMiddleware',
-                                            'django.contrib.sessions.middleware.SessionMiddleware',
-                                            'django.middleware.common.CommonMiddleware',
-                                            'django.middleware.csrf.CsrfViewMiddleware',
-                                            'django.contrib.auth.middleware.AuthenticationMiddleware',
-                                            'django.contrib.messages.middleware.MessageMiddleware',
-                                            'django.middleware.clickjacking.XFrameOptionsMiddleware',
-                                            'university.middleware.SimpleMiddleware', #the order of middlewars are
-                                            important
-                                            # because one may depend on other/s, e.g. AuthenticationMiddleware depends
-                                            on SessionMiddleware
-                                            ]
-                                        </code>
-
-
-
-
+                                        logging in, force logout, etc.
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="accordion-item">
+                            <!-- <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingThree">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseThree" aria-expanded="false"
@@ -214,7 +163,7 @@
                                         does limit overflow.
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
 
                         </div>

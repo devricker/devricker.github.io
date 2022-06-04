@@ -37,3 +37,8 @@ body{
 .text-blue{
     color: rgb(152, 226, 255);
 }
+
+.accordion-body{
+    padding-left: 6px;
+    padding-right: 6px;
+}
