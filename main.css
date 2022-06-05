@@ -10,13 +10,19 @@ nav{
     background: linear-gradient(90deg,rgb(152, 226, 255), rgb(183, 235, 255));
 
 }
+/* code {
+    white-space: pre;
+} */
 
+python-exec{
+    background-color: red;
+}
 
 header{
     position: sticky;
 	top: 0;
     z-index: 500;
-    box-shadow: 0 0 20px rgb(213, 213, 213);
+    box-shadow: 0 0 20px rgb(255, 255, 255);
 }
 
 .accordion-button:not(.collapsed) {

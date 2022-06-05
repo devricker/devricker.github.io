@@ -12,15 +12,21 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <!-- important -->
+
+
+    <link href="prism.css" rel="stylesheet" />
 </head>
 
 <body>
-
+    <script src="prism.js"></script>
 
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#"><h3>ME.HOMEPAGE</h3></a>
+                <a class="navbar-brand" href="#">
+                    <h3 class="text-dark">ME.HOMEPAGE</h3>
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -28,13 +34,13 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#intro">Intro</a>
+                            <a class="nav-link" aria-current="page" href="#intro"><i>intro</i></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#skills">Skills</a>
+                            <a class="nav-link" href="#topics"><i>topics</i></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#contact">contact</a>
+                            <a class="nav-link" href="#contact"><i>contact</i></a>
                         </li>
                     </ul>
                 </div>
@@ -44,11 +50,20 @@
 
     <main class="container col-lg-9 col-md-10 col-sm-11 col-xs-12">
 
-        
-            
-        
 
-        <div class="text-center tex-muted py-5" id="intro" >
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="text-center tex-muted py-5" id="intro">
             <i class="text-muted">
                 - intro -
             </i>
@@ -56,22 +71,30 @@
 
         <article class="">
             <p id="introtext" style="text-align:justify;" class="text-muted">
-                Hello and welcome to my Homepage, Here I've a brief introduction of my experiences and skills, I've studied Information Technology in both B.S. and M.S. grades. As a bachelor of science, I got familiar with some programming languages and concepts like Data bases, Algorithm Design, Data structure and other basic stuff, after that I started my M.S. in IT and got some experience in machine learning and python language, and finally graduated with 17.2. After that I got involved in real life projects, including basic frontend jobs with huge amount of code including HTML, CSS, JavaScript and bootstrap. But the main thing I've been focusing on, is Python, Django web framework and some machine learning experiences. I enjoy what I've found as interest in my career path and always looking forward to do challenging projects and joining dynamic work environments.
+                Hello and welcome to my Homepage, Here I've a brief introduction of my experiences and topics, I've
+                studied Information Technology in both B.S. and M.S. grades. As a bachelor of science, I got familiar
+                with some programming languages and concepts like Data bases, Algorithm Design, Data structure and other
+                basic stuff, after that I started my M.S. in IT and got some experience in machine learning and python
+                language, and finally graduated with 17.2. After that I got involved in real life projects, including
+                basic frontend jobs with huge amount of code including HTML, CSS, JavaScript and bootstrap. But the main
+                thing I've been focusing on, is Python, Django web framework and some machine learning experiences. I
+                enjoy what I've found as interest in my career path and always looking forward to do challenging
+                projects and joining dynamic work environments.
             </p>
         </article>
 
 
-        <div class="text-center tex-muted py-5" id="skills" >
+        <div class="text-center tex-muted py-5" id="topics">
             <i class="text-muted">
-                - skills -
+                - topics -
             </i>
         </div>
 
-        
 
 
-        <div class="accordion pt-0" id="accordionSkills">
-            <!-- <h1 class="text-blue">ME.SKILLS</h1> -->
+
+        <div class="accordion pt-0" id="accordionTopics">
+            <!-- <h1 class="text-blue">ME.Topics</h1> -->
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingDjango">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -82,10 +105,10 @@
                     </button>
                 </h2>
                 <div id="collapseDjango" class="accordion-collapse collapse" aria-labelledby="headingDjango"
-                    data-bs-parent="#accordionSkills">
+                    data-bs-parent="#accordionTopics">
                     <div class="accordion-body">
                         <!-- #################################################### -->
-                        <div class="accordion" id="accordionExample">
+                        <div class="accordion" id="accordionDjango">
 
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingOne">
@@ -95,7 +118,7 @@
                                     </button>
                                 </h2>
                                 <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
-                                    data-bs-parent="#accordionExample">
+                                    data-bs-parent="#accordionDjango">
                                     <div class="accordion-body" style="text-align:justify ;">
                                         <strong>Django is a high-level Python web framework</strong> that encourages
                                         rapid development and clean,
@@ -117,7 +140,7 @@
                                     </button>
                                 </h2>
                                 <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
-                                    data-bs-parent="#accordionExample">
+                                    data-bs-parent="#accordionDjango">
                                     <div class="accordion-body" style="text-align: justify ;">
                                         According to tutorials middlewares are hook to requests, and they can manipulate
                                         them, Django's
@@ -146,14 +169,166 @@
                     </button>
                 </h2>
                 <div id="collapsePython" class="accordion-collapse collapse" aria-labelledby="headingPython"
-                    data-bs-parent="#accordionSkills">
+                    data-bs-parent="#accordionTopics">
                     <div class="accordion-body">
                         <!-- #################################################### -->
-                        
+                        <div class="accordion" id="accordionPython">
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingException">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseException" aria-expanded="false"
+                                        aria-controls="collapseException">
+                                        Exception Handling
+                                    </button>
+                                </h2>
+                                <div id="collapseException" class="accordion-collapse collapse"
+                                    aria-labelledby="headingException" data-bs-parent="#accordionPython">
+                                    <div class="accordion-body" style="text-align:justify ;">
+                                        <p style="text-align:justify ;">
+                                            <strong>
+                                                Python has <a target="_blank"
+                                                    href="https://docs.python.org/3/library/exceptions.html">built-in
+                                                    exceptions</a>
+                                            </strong> that are raised when an error occurs
+                                            in our program and if they are not handled the program will stop
+                                            unexpectedly. Let's take a look at the program below:
+                                        </p>
+
+                                        <pre class="python-exec">
+<code  class="language-python">pizza_eathers_count = [0,'4','five',2]
+for count in pizza_eathers_count:
+    try:
+        print(f"count is {count} with {type(count)} type")
+        if not isinstance(count,int):
+            raise TypeError("not an integer!")
+            # raise Exception("not an integer!")
+        share = 1/int(count)
+        break
+    except ZeroDivisionError:
+        print('division by zero is not allowed, moving to next!')
+    except Exception as e:
+        print(f'{e.__class__.__name__} accourd, moving to next!')
+
+print(f'share is {share}')</code>
+</pre>
+                                        <p style="text-align:justify ;">
+                                            this program is getting number
+                                            of people who will eat a whole pizza and calculates the share of
+                                            each. we are simulating the case when user enters a number of invalid
+                                            inputs and we are handling them by making use of python Exceptions. first
+                                            we check the value and if its not an instance of python <code>int</code>
+                                            class we raise a <code>TypeError</code>, if not we try to do the
+                                            division and if it is successfull program ends. In case the in put is
+                                            <code>0</code> the <code>ZeroDivisionError</code> will be raised and
+                                            we are gonna handle it, any othe <code>Exception</code> will be handled in
+                                            the
+                                            last part. out put looks like this:
+                                        </p>
+                                        <pre class="python-exec"><code  class="language-python">count is 0 with &#60;class 'int'&#62; type
+division by zero is not allowed, moving to next!
+count is 4 with &#60;class 'str'&#62; type
+Exception accourd, moving to next!
+count is five with &#60;class 'str'&#62; type
+Exception accourd, moving to next!
+count is 2 with &#60;class 'int'&#62; type
+share is 0.5</code>
+</pre>
+                                        <p style="text-align:justify ;">
+                                            some code snippets on <code>Exceptions</code>:
+                                        </p>
+                                        <pre class="python-exec"><code  class="language-python">#Catching specific exceptions 
+try:
+    # do something
+    pass
+except ValueError:
+    # handle ValueError exception
+    pass
+except (TypeError, ZeroDivisionError):
+    # handle multiple exceptions
+    # TypeError and ZeroDivisionError
+    pass
+except:
+    # handle all other exceptions
+    pass</code>
+    </pre>
+
+<pre class="python-exec"><code  class="language-python"># we use else when we want to run some lines of
+# code if others run without any errors 
+
+try:
+    num = int(input("Enter a number: "))
+    assert num % 2 == 0
+except:
+    print("Not an even number!")
+else:
+    reciprocal = 1/num
+    print(reciprocal)</code>
+    </pre>
+
+<pre class="python-exec"><code  class="language-python"># finally is executed no matter what,
+# and is generally used to release external resources
+
+try:
+    f = open("test.txt")
+    # perform file operations
+finally:
+    f.close()</code>
+    </pre>
+                                       
+    
+    
+
+    
+
+                                    </div>
+
+
+
+
+
+
+
+
+
+
+                                </div>
+                            </div>
+
+                            <!-- <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingFour">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseFour" aria-expanded="false"
+                                        aria-controls="collapseFour">
+                                        Middlewares
+                                    </button>
+                                </h2>
+                                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                                    data-bs-parent="#accordionPython">
+                                    <div class="accordion-body" style="text-align: justify ;">
+                                        According to tutorials middlewares are hook to requests, and they can manipulate
+                                        them, Django's
+                                        SessionMiddleware and AuthenticationMiddleware are based on this concept too,
+                                        they receive request
+                                        and see how the user status is, and based on that observation they decide what
+                                        do,
+                                        logging in, force logout, etc.
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+
+
+
+
+
+
+
                         <!-- #################################################### -->
                     </div>
                 </div>
             </div>
+            
 
 
         </div>
@@ -185,7 +360,7 @@
 
 
 
-
+        <small class="text-muted"><i>some codes are obtianed from [programiz, geeksforgeeks,]</i></small>
     </main>
 
 
@@ -195,10 +370,13 @@
                 <i class="bi bi-github p-0 m-0" style="font-size: 70px; color:#FFF;"></i>
             </div>
         </a>
-        
+
     </footer>
 
     <!-- Bootstrap JavaScript Libraries -->
+    <!-- <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">
     </script>
@@ -206,5 +384,18 @@
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
     </script>
 </body>
+
+<script>
+    // $('.python-exec').each(function(i, obj) {
+    //     //test
+    // });
+
+    $(document).ready(function () {
+
+        $(".python-exec").each(function (i) {
+            $(this).css('background', "rgb(245, 250, 255)")
+        })
+    });
+</script>
 
 </html>
