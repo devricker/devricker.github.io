@@ -94,7 +94,7 @@
 
 
         <div class="accordion pt-0" id="accordionTopics">
-            <!-- <h1 class="text-blue">ME.Topics</h1> -->
+            
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingDjango">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -253,7 +253,7 @@ except:
     pass</code>
     </pre>
 
-<pre class="python-exec"><code  class="language-python"># we use else when we want to run some lines of
+                                        <pre class="python-exec"><code  class="language-python"># we use else when we want to run some lines of
 # code if others run without any errors 
 
 try:
@@ -266,7 +266,7 @@ else:
     print(reciprocal)</code>
     </pre>
 
-<pre class="python-exec"><code  class="language-python"># finally is executed no matter what,
+                                        <pre class="python-exec"><code  class="language-python"># finally is executed no matter what,
 # and is generally used to release external resources
 
 try:
@@ -275,11 +275,39 @@ try:
 finally:
     f.close()</code>
     </pre>
-                                       
-    
-    
 
+                                        <pre class="python-exec"><code  class="language-python"># print(dir(locals()['__builtins__']))
+# above line shows python builtins including predifined exceptions
+
+class AgeIsNotInRange(Exception):
     
+    def __init__(self,age,dummy_message,code=500, *args):
+        self.age = age
+        self.dummy_message = dummy_message
+        self.code = code
+        # super().__init__(self.dummy_message)
+
+    def __str__(self):
+        return f'ERROR, you entered age {self.age}, {self.dummy_message} - code {self.code}'
+
+age = int(input('Please enter your age:'))
+
+try:
+    if not 18&#60;age&#60;50:
+        raise AgeIsNotInRange(age, "Entered value is not in range")
+except AgeIsNotInRange as e:
+    print(e)</code>
+</pre>
+                                        <p>Output for code above with invalid age is:</p>
+
+                                        <pre
+                                            class="python-exec"><code  class="language-python">ERROR, you entered age 2, Entered value is not in range - code 500</code></pre>
+
+
+
+
+
+
 
                                     </div>
 
@@ -294,6 +322,156 @@ finally:
 
                                 </div>
                             </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingIterators">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseIterators" aria-expanded="false"
+                                        aria-controls="collapseIterators">
+                                        Iterators
+                                    </button>
+                                </h2>
+                                <div id="collapseIterators" class="accordion-collapse collapse" aria-labelledby="headingIterators"
+                                    data-bs-parent="#accordionPython">
+                                    <div class="accordion-body" style="text-align: justify ;">
+
+
+<pre class="python-exec">
+<code  class="language-python"># Iterator is an object that we can Iterate upon, which will return one Element at a time
+# Iterator object has to implement two specia methods, __iter__() and __next__()
+# both together we call them iterator
+# built-ins in Python includign list, tuple, string etc. are iterables
+
+L = [1,2,3,4,5]
+L_iterabled = iter(L)
+try:
+    print(L_iterabled.__next__())
+    print(next(L_iterabled))
+    print(L_iterabled.__next__())
+    print(next(L_iterabled))
+    print(L_iterabled.__next__())
+    print(next(L_iterabled))
+except StopIteration as se:
+    pass</code>
+</pre>
+<pre class="python-exec">
+<code  class="language-python"># implementation of for loop with iterators
+L = [1,2,3,4,5]
+# for item in L:
+#     print(item)
+
+L_iterabled  = iter(L)
+while 1:
+    try:
+        print(L_iterabled.__next__())
+    except StopIteration:
+        break</code>
+</pre>
+<pre class="python-exec">
+<code  class="language-python"># building custom iterables in python
+
+class TwoPowFromZeroToNIterable:
+
+    def __init__(self, N=0):
+        self.N = N
+
+    def __iter__(self):
+        self.i=0
+        return self
+
+    def __next__(self):
+        if self.i <= self.N:
+            result = 2 ** self.i
+            self.i += 1
+            return result
+        else:
+            raise StopIteration
+
+iterabled=iter(TwoPowFromZeroToNIterable(3))
+print(next(iterabled))
+print(next(iterabled))
+print(next(iterabled))
+print(next(iterabled))
+print(next(iterabled))</code>
+</pre>
+<pre class="python-exec">
+<code  class="language-python">infinity = iter(int,'CatchMe')
+while True:
+    print(next(infinity))
+
+# this one will stop immediately
+# infinity = iter(int,0)
+# while True:
+#     print(next(infinity))</code>
+</pre>
+
+
+<pre class="python-exec" style="display:none ;"><code class="language-python">#Ignore this one :)
+class CountToN:
+
+    def __init__(self, n=0):
+        self.n = n
+    
+    def __iter__(self):
+        self.counter = 0
+        return self
+
+    def __next__(self):
+        if self.counter < self.n:
+            self.counter += 1
+            return self.counter
+        else:
+            raise StopIteration
+print(type(CountToN(1)))
+# i = iter(CountToN)
+# print(next(i))
+# print(next(i))
+# print(next(i))
+# print(next(i))
+# print(next(i))
+# print(next(i))
+# print(next(i))
+
+
+
+# infinity = iter(CountToN(100),4)
+
+# print(next(infinity))
+
+# while True:
+#     print(next(infinity))</code></pre>
+
+
+
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading{{fillme}}">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse{{fillme}}" aria-expanded="false"
+                                        aria-controls="collapse{{fillme}}">
+                                        {{fillme}}
+                                    </button>
+                                </h2>
+                                <div id="collapse{{fillme}}" class="accordion-collapse collapse" aria-labelledby="heading{{fillme}}"
+                                    data-bs-parent="#accordionPython">
+                                    <div class="accordion-body" style="text-align: justify ;">
+                                        According to tutorials middlewares are hook to requests, and they can manipulate
+                                        them, Django's
+                                        SessionMiddleware and AuthenticationMiddleware are based on this concept too,
+                                        they receive request
+                                        and see how the user status is, and based on that observation they decide what
+                                        do,
+                                        logging in, force logout, etc.
+                                    </div>
+                                </div>
+                            </div> -->
 
                             <!-- <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingFour">
@@ -328,7 +506,7 @@ finally:
                     </div>
                 </div>
             </div>
-            
+
 
 
         </div>
