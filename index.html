@@ -451,6 +451,207 @@ print(type(CountToN(1)))
                                 </div>
                             </div>
 
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingGenerators">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseGenerators" aria-expanded="false"
+                                        aria-controls="collapseGenerators">
+                                        Generators
+                                    </button>
+                                </h2>
+                                <div id="collapseGenerators" class="accordion-collapse collapse" aria-labelledby="headingGenerators"
+                                    data-bs-parent="#accordionPython">
+                                    <div class="accordion-body" style="text-align: justify ;">
+
+<pre class="python-exec">
+<code  class="language-python"># Python generators are a simple way of creating iterators. 
+# Simply speaking, a generator is a function that returns an object (iterator) 
+# which we can iterate over (one value at a time).
+
+# LOCAL VARIABLES ARE REMEMBERED IN EACH CALL
+
+# If a function contains at least one yield statement (it may contain other yield or return statements),
+# it becomes a generator function.
+# Both yield and return will return some value from a function.
+
+# The difference is that while a return statement terminates a function entirely,
+# yield statement pauses the function saving all its states and later continues
+# from there on successive calls.
+
+# 1. Generator function contains one or more yield statements.
+# 2. When called, it returns an object (iterator) but does not start execution immediately.
+# 3. Methods like __iter__() and __next__() are implemented automatically. So we can iterate through the items using next().
+# 4. Once the function yields, the function is paused and the control is transferred to the caller.
+# 5. Local variables and their states are remembered between successive calls.
+# 6. Finally, when the function terminates, StopIteration is raised automatically on further calls.
+
+def gen():
+    counter = 0
+    print('first time')
+    yield counter
+
+    print('second time')
+    counter += 1
+    yield counter
+    
+    print('third time')
+    counter += 1
+    yield counter
+
+# print(next(gen())) provids first yield
+# print(next(gen())) provids first yield
+# print(next(gen())) provids first yield
+
+g = gen()
+print(next(g))
+print(next(g))
+print(next(g))
+# print(next(g)) this will raise StopIteration
+print('------------------------------')
+# g is finished so we create a new one
+g = gen() 
+for i in g:
+    print(i)
+    print('getting one item at a time')
+    # print(next(i)) this is wrong!</code>
+</pre>
+
+<pre class="python-exec">
+<code class="language-python">def upperchar(string):
+    for i in range(0,len(string),1):
+        yield string[i].upper()
+
+gen = upperchar('hello')
+# print(next(gen))
+# print(next(gen))
+# print(next(gen))
+# print(next(gen))
+# print(next(gen))
+# print(next(gen)) will raise StopIteration
+
+for i in gen:
+    print(i)</code>
+</pre>
+<pre class="python-exec">
+<code class="language-python"># Generator Expression
+# python generators can be created on the fly, just link lists but instead of
+# [] we will use () and diffirence is that list create whole items at once
+# but generators will create items in a lazy way when asked for, one at a time
+# and for this reasone they are memory efficient than lists
+
+baselist = [1,2,3]
+
+l = [i*2 for i in baselist]
+print(l) # [2, 4, 6]
+g = (i*2 for i in baselist)
+print(g) # <generator object <genexpr> at 0x0000029006DAD350>
+
+print(next(g))
+print(next(g))
+print(next(g))
+# print(next(g)) # StopIteration
+
+
+# Generator expressions can be used as function arguments
+
+print(sum(i*2 for i in baselist)) # 12
+
+print('---------------------------')
+
+# Generators can be implemented in a clear and concise way as compared to their iterator class counterpart
+# remember TwoPowFromZeroToNIterable from Iterators in pervious section
+# now it's implemented using generators
+
+def TwoPowFromZeroToNGenerator(max=0):
+    n = 0
+    while n < max:
+        yield 2 ** n
+        n += 1
+
+x = TwoPowFromZeroToNGenerator(4)
+
+# print(next(x))
+# print(next(x))
+# print(next(x))
+# print(next(x))
+# print(next(x)) StopIteration
+
+for i in x:
+    print(i)
+
+# Generator implementation of such sequences is memory friendly and is preferred since it only produces one item at a time.
+
+# Generators are excellent mediums to represent an infinite stream of data. Infinite streams
+# cannot be stored in memory, and since generators produce only one item at a time, they can
+# represent an infinite stream of data.
+# The following generator function can generate all the even numbers (at least in theory).
+
+def all_even():
+    n = 0
+    while True:
+        yield n
+        n += 2
+
+# Multiple generators can be used to pipeline a series of operations.
+# This is best illustrated using an example.
+
+# Suppose we have a generator that produces the numbers in the Fibonacci
+# series. And we have another generator for squaring numbers.
+
+# If we want to find out the sum of squares of numbers in
+# the Fibonacci series, we can do it in the following way
+# by pipelining the output of generator functions together.
+
+def fibonacci_numbers(nums):
+    x, y = 0, 1
+    for _ in range(nums):
+        x, y = y, x+y
+        yield x
+
+def square(nums):
+    for num in nums:
+        yield num**2
+
+print(sum(square(fibonacci_numbers(10))))</code>
+</pre>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="my-2 p-2" style="border-radius:10px;
+                            background: linear-gradient(45deg,rgb(80, 255, 20),rgb(100, 255, 30),rgb(180, 255, 200));
+                            ">
+                            <h3>Loading...</h3>
+                            <ul>
+                                <li>Rgex</li>
+                                <li>Decorators</li>
+                                <li>Mutables and Immutables</li>
+                                <li>OOP overview and concepts</li>
+                                <li>Pass by ref and val</li>
+                                <li>Closures</li>
+                                <li>Property</li>
+                                <li>Python Anonymous/Lambda Function</li>
+                                <li>Python Global, Local and Nonlocal variables</li>
+                                <div class="text-muted">
+                                    <li>Duck typing</li>
+                                    <li>Context manager</li>                  
+                                    <li>Data type</li>
+                                    <li>GIL and multithreadin</li>
+                                    <li>Multiprocessing</li>
+                                    <li>Async programming and asyncio</li>
+                                    <li>Datetime</li>
+                                    <li>Files and directories</li>
+                                    <li>Python Modules</li>
+                                    <li>Package</li>
+                                </div>
+
+
+                            </ul>
+                            </div>
+
                             <!-- <div class="accordion-item">
                                 <h2 class="accordion-header" id="heading{{fillme}}">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
