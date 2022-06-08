@@ -94,7 +94,7 @@
 
 
         <div class="accordion pt-0" id="accordionTopics">
-            
+
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingDjango">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -331,12 +331,12 @@ except AgeIsNotInRange as e:
                                         Iterators
                                     </button>
                                 </h2>
-                                <div id="collapseIterators" class="accordion-collapse collapse" aria-labelledby="headingIterators"
-                                    data-bs-parent="#accordionPython">
+                                <div id="collapseIterators" class="accordion-collapse collapse"
+                                    aria-labelledby="headingIterators" data-bs-parent="#accordionPython">
                                     <div class="accordion-body" style="text-align: justify ;">
 
 
-<pre class="python-exec">
+                                        <pre class="python-exec">
 <code  class="language-python"># Iterator is an object that we can Iterate upon, which will return one Element at a time
 # Iterator object has to implement two specia methods, __iter__() and __next__()
 # both together we call them iterator
@@ -354,7 +354,7 @@ try:
 except StopIteration as se:
     pass</code>
 </pre>
-<pre class="python-exec">
+                                        <pre class="python-exec">
 <code  class="language-python"># implementation of for loop with iterators
 L = [1,2,3,4,5]
 # for item in L:
@@ -367,7 +367,7 @@ while 1:
     except StopIteration:
         break</code>
 </pre>
-<pre class="python-exec">
+                                        <pre class="python-exec">
 <code  class="language-python"># building custom iterables in python
 
 class TwoPowFromZeroToNIterable:
@@ -394,7 +394,7 @@ print(next(iterabled))
 print(next(iterabled))
 print(next(iterabled))</code>
 </pre>
-<pre class="python-exec">
+                                        <pre class="python-exec">
 <code  class="language-python">infinity = iter(int,'CatchMe')
 while True:
     print(next(infinity))
@@ -406,7 +406,7 @@ while True:
 </pre>
 
 
-<pre class="python-exec" style="display:none ;"><code class="language-python">#Ignore this one :)
+                                        <pre class="python-exec" style="display:none ;"><code class="language-python">#Ignore this one :)
 class CountToN:
 
     def __init__(self, n=0):
@@ -459,11 +459,11 @@ print(type(CountToN(1)))
                                         Generators
                                     </button>
                                 </h2>
-                                <div id="collapseGenerators" class="accordion-collapse collapse" aria-labelledby="headingGenerators"
-                                    data-bs-parent="#accordionPython">
+                                <div id="collapseGenerators" class="accordion-collapse collapse"
+                                    aria-labelledby="headingGenerators" data-bs-parent="#accordionPython">
                                     <div class="accordion-body" style="text-align: justify ;">
 
-<pre class="python-exec">
+                                        <pre class="python-exec">
 <code  class="language-python"># Python generators are a simple way of creating iterators. 
 # Simply speaking, a generator is a function that returns an object (iterator) 
 # which we can iterate over (one value at a time).
@@ -516,7 +516,7 @@ for i in g:
     # print(next(i)) this is wrong!</code>
 </pre>
 
-<pre class="python-exec">
+                                        <pre class="python-exec">
 <code class="language-python">def upperchar(string):
     for i in range(0,len(string),1):
         yield string[i].upper()
@@ -532,7 +532,7 @@ gen = upperchar('hello')
 for i in gen:
     print(i)</code>
 </pre>
-<pre class="python-exec">
+                                        <pre class="python-exec">
 <code class="language-python"># Generator Expression
 # python generators can be created on the fly, just link lists but instead of
 # [] we will use () and diffirence is that list create whole items at once
@@ -620,36 +620,395 @@ print(sum(square(fibonacci_numbers(10))))</code>
                                 </div>
                             </div>
 
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingDataTypesMutablityPassByRefAndVal">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseDataTypesMutablityPassByRefAndVal"
+                                        aria-expanded="false" aria-controls="collapseDataTypesMutablityPassByRefAndVal">
+                                        DataTypes, Mutablity, Pass by reference and value, Deep and Shallow copy (...)
+                                    </button>
+                                </h2>
+                                <div id="collapseDataTypesMutablityPassByRefAndVal" class="accordion-collapse collapse"
+                                    aria-labelledby="headingDataTypesMutablityPassByRefAndVal"
+                                    data-bs-parent="#accordionPython">
+                                    <div class="accordion-body" style="text-align: justify ;">
+                                        <h4>Data Types in python</h4>
+                                        <p>Python has the following data types built-in by default, in these categories:
+                                        </p>
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td>Text</td>
+                                                    <td><code><strong>str</strong></code></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Numeric</td>
+                                                    <td><code><strong>int</strong></code>,
+                                                        <code><strong>float</strong></code>,
+                                                        <code><small><i>complex</i></small></code></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Sequence</td>
+                                                    <td><code class="text-primary"><strong>list</strong></code>,
+                                                        <code><strong>tuple</strong></code>,
+                                                        <code><small><i>range</i></small></code></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Mapping</td>
+                                                    <td><code class="text-primary"><strong>dict</strong></code></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Set</td>
+                                                    <td><code class="text-primary"><strong>set</strong></code>,
+                                                        <code><small><i>frozenset</i></small></code>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Boolean</td>
+                                                    <td><code><strong>bool</strong></code></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Binary</td>
+                                                    <td>
+                                                        <small><i>
+                                                                <code>bytes</code>, <code>bytearray</code>,
+                                                                <code>memoryview</code>
+                                                            </i></small>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>None</td>
+                                                    <td><code><strong>NoneType</strong></code></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <i>
+                                            <p class="text-muted">above, <code class="text-primary">Mutable</code>
+                                                types and <code>Immutable</code> types are illustrated colors</p>
+                                        </i>
+
+                                        <h4>Mutable and Immutable</h4>
+
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td><code class="text-primary">Mutable</code></td>
+                                                    <td><code class="">Immutable</code></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>The objects can be modified after the creation as well.</td>
+                                                    <td>Objects can not be modified after their creation of the objects.
+                                                    </td>
+                                                </tr>
+                                                <!-- <tr>
+                                                    <td>Classes that are mutable are not considered final.</td>
+                                                    <td>Classes that are immutable are considered final.</td>
+                                                </tr> -->
+                                                <!-- <tr>
+                                                    <td>Thread unsafe.</td>
+                                                    <td>Thread-safe.</td>
+                                                </tr> -->
+                                                <!-- <tr>
+                                                    <td>Classes are not made final for the mutable objects.</td>
+                                                    <td>Classes are made final for the immutable objects.</td>
+                                                </tr> -->
+                                                <tr>
+                                                    <td>Example:&nbsp;Lists, Dicts, Sets, User-Defined Classes,
+                                                        Dictionaries, etc.</td>
+                                                    <td>Example:&nbsp;int, float, bool, string, Unicode, tuple, Numbers,
+                                                        etc.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <pre class="python-exec"><code class="language-python"># Mutables example
+l = [1,2,3]
+l [0] = 0
+# print(l) #[0, 2, 3]
+
+dic = {
+    "firstname": "joe",
+    "lastname": "green"
+}
+dic["firstname"] = "john"
+# print(dic) # {'firstname': 'john', 'lastname': 'green'}
+
+s = {"apple", "banana", "cherry"}
+s.update(("grape",))
+# print(s) # {'cherry', 'banana', 'apple', 'grape'}</code></pre>
+
+                                        <pre class="python-exec"><code class="language-python"># Immutables example
+my_tuple = (1,2,3)
+# my_tuple[0] = 1 # TypeError: 'tuple' object does not support item assignment
+##############################################################################
+s = "Hello"
+print(id(s)) # 2379890681328
+# s[0] = "J" # TypeError: 'str' object does not support item assignment
+s = "Jello"
+print(id(s)) # 2379890681136
+##############################################################################
+x = 1
+y = x
+print(id(x),id(y)) # 140727861057184 140727861057184
+y = 2
+print(x) # 1
+print(id(x),id(y)) # 140727861057184 140727861057216</code></pre>
+
+                                        <h4>Pass reference and value</h4>
+                                        <p>
+                                            <strong>Passed by value</strong> means when primative data like int,
+                                            str, bool types or immutable data types like tuple are
+                                            passd to a function in python all the values are copied over into that
+                                            function, resulting in if data changes inside the function
+                                            it won't change outside the function.
+                                        </p>
+                                        <p>
+                                            <strong>Passed by reference</strong> means when mutable data such as list,
+                                            dict, set or etc. passed to a function, only the reference of those objects
+                                            are passed to function resulting in if they change inside the functino, the
+                                            change will also be reflected in outside the fucntion.
+                                        </p>
+                                        <pre class="python-exec"><code class="language-python">def pass_by_value(num):
+    num+=1
+num=0
+print(num) # 0
+pass_by_value(num)
+print(num) # 0
+
+def pass_by_reference(mylis):
+    mylis.append('100')
+mylis=[1,2,3]
+print(mylis) # [1, 2, 3]
+pass_by_reference(mylis)
+print(mylis) # [1, 2, 3, '100']
+
+# other example
+def passed(x,l):
+    x += 1
+    l.append('Hello')
+x = 0
+l = [1,2.3]
+print(x,l) # 0 [1, 2.3]
+passed(x,l)
+print(x,l) # 0 [1, 2.3, 'Hello']
+
+# in case we want to avoid function effect on mutables
+# we have to copy them, either manually or by built-in
+# copy() method
+
+def passbyrefbutcopy(l):
+    l.pop()
+l = ["a","b"]
+print(l)
+passbyrefbutcopy(l.copy())
+# copiedlist = [i for i in l]
+# passbyrefbutcopy(copiedlist)
+print(l)</code></pre>
+
+                                        <pre class="python-exec"><code class="language-python"># playing around with ids and references
+main = [1,2]
+main_assign = main
+main_copy = main.copy()
+
+print(main, main_assign, main_copy) # [1, 2] [1, 2] [1, 2]
+
+print(id(main), id(main_assign), id(main_copy)) # 2283015860864 2283015860864 2283014782720
+
+print(main==main_assign,
+        main==main_copy,
+        main_assign==main_copy
+        ) # True True True
+
+print(id(main)==id(main_assign),
+        id(main)==id(main_copy),
+        id(main_assign)==id(main_copy)
+        ) # True False False
+print(main is main_assign,
+        main is main_copy,
+        main_assign is main_copy
+        ) # True False False</code></pre>
+                                        <h4>Deep copy vs Shallow copy</h4>
+                                        <p>
+                                            Assignment statements in Python do not copy objects, they create bindings
+                                            between a target and an object. For collections that are mutable or contain
+                                            mutable items, a copy is sometimes needed so one can change one copy without
+                                            changing the other.
+                                            The difference between shallow and deep copying is only relevant for
+                                            compound objects (objects that contain other objects, like lists or class
+                                            instances):
+                                            <ul>
+                                                <li>
+                                                    A shallow copy constructs a new compound object and then (to the
+                                                    extent possible) inserts references into it to the objects found in
+                                                    the original.
+
+                                                </li>
+                                                <li>
+                                                    A deep copy constructs a new compound object and then, recursively,
+                                                    inserts copies into it of the objects found in the original.
+
+                                                </li>
+                                            </ul>
+                                            <p>
+                                                Two problems (which can be avoided) often exist with deep copy
+                                                operations that don’t exist with shallow copy operations:
+                                            </p>
+                                            <ul>
+                                                <li>
+                                                    Recursive objects (compound objects that, directly or indirectly,
+                                                    contain a reference to themselves) may cause a recursive loop.
+                                                </li>
+                                                <li>
+                                                    Because deep copy copies everything it may copy too much, such as
+                                                    data which is intended to be shared between copies.
+                                                </li>
+                                            </ul>
+
+
+                                        </p>
+                                        <pre class="python-exec"><code class="language-python"># assignment for very shallow copy
+li1 = [1, 2, [3,5], 4]
+li2 = li1
+print(li1) # [1, 2, [3, 5], 4]
+li2[0] = 7777 
+li2[2][0] = 7777
+print(li1) # [7777, 2, [7777, 5], 4] ******************
+print(li2) # [7777, 2, [7777, 5], 4]
+
+from copy import copy
+# copy for shallow copy
+li1 = [1, 2, [3,5], 4]
+li2 = copy(li1)
+print(li1) # [1, 2, [3, 5], 4]
+li2[0] = 7777
+li2[2][0] = 7777
+print(li1) # [1, 2, [7777, 5], 4] *********************
+print(li2) # [7777, 2, [7777, 5], 4]
+
+from copy import deepcopy
+# deepcopy for deep copy
+li1 = [1, 2, [3,5], 4]
+li2 = deepcopy(li1)
+print(li1) # [1, 2, [3, 5], 4]
+li2[0] = 7777
+li2[2][0] = 7777
+print(li1) # [1, 2, [3, 5], 4] ************************
+print(li2) # [7777, 2, [7777, 5], 4]</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingBuiltInFunctions">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseBuiltInFunctions" aria-expanded="false"
+                                        aria-controls="collapseBuiltInFunctions">
+                                        Some built-in functions
+                                    </button>
+                                </h2>
+                                <div id="collapseBuiltInFunctions" class="accordion-collapse collapse"
+                                    aria-labelledby="headingBuiltInFunctions" data-bs-parent="#accordionPython">
+                                    <div class="accordion-body" style="text-align: justify ;">
+                                        <h4>Map function</h4>
+                                        <pre class="python-exec"><code class="language-python"># The map() function applies a given function to each item of an iterable 
+# (list, tuple etc.) and returns an iterator.
+
+
+# without using map
+l = [1,2,3,4,5,6]
+lp2 = []
+for item in l:
+    lp2.append(item**2)
+print(lp2) # [1, 4, 9, 16, 25, 36]
+
+
+# using map
+def p2(i):
+    return i*i
+lp2mapfunctoin = list(map(p2,l))
+print(lp2mapfunctoin) # [1, 4, 9, 16, 25, 36]
+
+
+# using map with lambda
+lp2map = map(lambda x : x**2 ,l)
+# print(lp2map) # <map object at 0x000001F3D2941220>
+print(list(lp2map)) # [1, 4, 9, 16, 25, 36]
+
+
+# using map with multiple ittrables
+circle_areas = [6.56773, 9.57668, 4.00914, 56.24241, 9.01344, 32.00013]
+result = list(map(round, circle_areas, range(1,7)))
+
+
+# using map with multiple ittrables
+l2 = [6,5,4,3,2,1]
+print(list(map(lambda x,y: x+y,l,l2))) # [7, 7, 7, 7, 7, 7]</code></pre>
+                                        <h4>Filter function</h4>
+                                        <pre class="python-exec"><code class="language-python"># The filter() function extracts elements from an iterable
+# (list, tuple etc.) for which a function returns True.
+
+l = [x for x in range(1,11)]
+
+def check_even(x):
+    if x % 2 == 0:
+        return True
+    else:
+        return False
+
+print(list(filter(check_even,l))) # [2, 4, 6, 8, 10]
+
+# above example using lambda
+print("using lambda: ",list(filter(lambda x : x%2==0 ,l))) 
+# using lambda:  [2, 4, 6, 8, 10]</code></pre>
+                                        <h4>Reduce function</h4>
+                                        <pre class="python-exec"><code class="language-python"># The reduce() function accepts a function and a sequence and returns a single value 
+# calculated as follows:
+# 1. Initially, the function is called with the first two items from the sequence 
+# and the result is returned.
+# 2. The function is then called again with the result obtained in step 1 and the 
+# next value in the sequence. This process keeps repeating until there are items 
+# in the sequence.
+
+
+from functools import reduce # only in python3
+# Returns the sum of all the elements using `reduce`
+result = reduce((lambda a, b: a + b), [1, 2, 3, 4])
+print(result) # 10</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+
 
                             <div class="my-2 p-2" style="border-radius:10px;
                             background: linear-gradient(45deg,rgb(80, 255, 20),rgb(100, 255, 30),rgb(180, 255, 200));
                             ">
-                            <h3>Loading...</h3>
-                            <ul>
-                                <li>Rgex</li>
-                                <li>Decorators</li>
-                                <li>Mutables and Immutables</li>
-                                <li>OOP overview and concepts</li>
-                                <li>Pass by ref and val</li>
-                                <li>Closures</li>
-                                <li>Property</li>
-                                <li>Python Anonymous/Lambda Function</li>
-                                <li>Python Global, Local and Nonlocal variables</li>
-                                <div class="text-muted">
-                                    <li>Duck typing</li>
-                                    <li>Context manager</li>                  
-                                    <li>Data type</li>
-                                    <li>GIL and multithreadin</li>
-                                    <li>Multiprocessing</li>
-                                    <li>Async programming and asyncio</li>
-                                    <li>Datetime</li>
-                                    <li>Files and directories</li>
-                                    <li>Python Modules</li>
-                                    <li>Package</li>
-                                </div>
+                                <h3>Loading...</h3>
+                                <ul>
+                                    <li>Decorators</li>
+                                    <li>Python Anonymous/Lambda Function</li>
+                                    <li>OOP overview and concepts</li>
+                                    <li>Closures</li>
+                                    <li>Property</li>
+                                    
+                                    <li>Python Global, Local and Nonlocal variables</li>
+                                    <li>Rgex</li>
+                                    <div class="text-muted">
+                                        <li>Design patterns</li>
+                                        <li>Duck typing</li>
+                                        <li>Context manager</li>
+                                        <li>GIL and multithreadin</li>
+                                        <li>Multiprocessing</li>
+                                        <li>Async programming and asyncio</li>
+                                        <li>Datetime</li>
+                                        <li>Files and directories</li>
+                                        <li>Python Modules</li>
+                                        <li>Package</li>
+                                    </div>
 
 
-                            </ul>
+                                </ul>
                             </div>
 
                             <!-- <div class="accordion-item">
@@ -661,28 +1020,6 @@ print(sum(square(fibonacci_numbers(10))))</code>
                                     </button>
                                 </h2>
                                 <div id="collapse{{fillme}}" class="accordion-collapse collapse" aria-labelledby="heading{{fillme}}"
-                                    data-bs-parent="#accordionPython">
-                                    <div class="accordion-body" style="text-align: justify ;">
-                                        According to tutorials middlewares are hook to requests, and they can manipulate
-                                        them, Django's
-                                        SessionMiddleware and AuthenticationMiddleware are based on this concept too,
-                                        they receive request
-                                        and see how the user status is, and based on that observation they decide what
-                                        do,
-                                        logging in, force logout, etc.
-                                    </div>
-                                </div>
-                            </div> -->
-
-                            <!-- <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingFour">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseFour" aria-expanded="false"
-                                        aria-controls="collapseFour">
-                                        Middlewares
-                                    </button>
-                                </h2>
-                                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
                                     data-bs-parent="#accordionPython">
                                     <div class="accordion-body" style="text-align: justify ;">
                                         According to tutorials middlewares are hook to requests, and they can manipulate
