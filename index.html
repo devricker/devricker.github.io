@@ -49,26 +49,11 @@
     </header>
 
     <main class="container col-lg-9 col-md-10 col-sm-11 col-xs-12">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         <div class="text-center tex-muted py-5" id="intro">
             <i class="text-muted">
                 - intro -
             </i>
         </div>
-
         <article class="">
             <p id="introtext" style="text-align:justify;" class="text-muted">
                 Hello and welcome to my Homepage, Here I've a brief introduction of my experiences and topics, I've
@@ -82,19 +67,12 @@
                 projects and joining dynamic work environments.
             </p>
         </article>
-
-
         <div class="text-center tex-muted py-5" id="topics">
             <i class="text-muted">
                 - topics -
             </i>
         </div>
-
-
-
-
         <div class="accordion pt-0" id="accordionTopics">
-
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingDjango">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -157,7 +135,6 @@
                     </div>
                 </div>
             </div>
-
 
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingPython">
@@ -979,37 +956,1016 @@ print(result) # 10</code></pre>
                                 </div>
                             </div>
 
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingDecorator">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseDecorator" aria-expanded="false"
+                                        aria-controls="collapseDecorator">
+                                        Decorator
+                                    </button>
+                                </h2>
+                                <div id="collapseDecorator" class="accordion-collapse collapse"
+                                    aria-labelledby="headingDecorator" data-bs-parent="#accordionPython">
+                                    <div class="accordion-body" style="text-align: justify ;">
+                                        <pre class="python-exec"><code class="language-python"># simple decorator
+def decorator(f):
+    def inner():
+        print("I got decorated")
+        f()
+    return inner
+    
+@decorator #means pass the following functoin to decorator and run decorator
+def smiple_function():
+    print("I'm a simple function...")
+smiple_function()
+
+# def smiple_function():
+#     print("I'm a simple function...")
+# decorated = decorator(smiple_function)
+# decorated()
 
 
-                            <div class="my-2 p-2" style="border-radius:10px;
-                            background: linear-gradient(45deg,rgb(80, 255, 20),rgb(100, 255, 30),rgb(180, 255, 200));
-                            ">
-                                <h3>Loading...</h3>
-                                <ul>
-                                    <li>Decorators</li>
-                                    <li>Python Anonymous/Lambda Function</li>
-                                    <li>OOP overview and concepts</li>
-                                    <li>Closures</li>
-                                    <li>Property</li>
-                                    
-                                    <li>Python Global, Local and Nonlocal variables</li>
-                                    <li>Rgex</li>
-                                    <div class="text-muted">
-                                        <li>Design patterns</li>
-                                        <li>Duck typing</li>
-                                        <li>Context manager</li>
-                                        <li>GIL and multithreadin</li>
-                                        <li>Multiprocessing</li>
-                                        <li>Async programming and asyncio</li>
-                                        <li>Datetime</li>
-                                        <li>Files and directories</li>
-                                        <li>Python Modules</li>
-                                        <li>Package</li>
+# decorating functions with parameters
+def legalize(func):
+    def inner(x, y):
+        if y == 0:
+            print("Zero division is not allowed...")
+            return
+        return func(x, y)
+    return inner
+
+@legalize
+def divide(x, y):
+    print(x/y)
+
+divide(4,0)
+
+# parameters of the nested inner() function inside the decorator is the same as
+#  the parameters of functions it decorates. Taking this into account, now we 
+# can make general decorators that work with any number of parameters.
+
+# In Python, this magic is done as function(*args, **kwargs). In this way,
+#  args will be the tuple of positional arguments and kwargs will be the 
+# dictionary of keyword arguments. 
+def any_param(func):
+    def inner(*args, **kwargs):
+        print('Extra job Done!')
+        print(args[0])
+        return func(*args, **kwargs)
+    return inner
+
+@any_param
+def func(x,y,z):
+    print(x,y,z)
+
+func('Apple', 'Cherry', 'Banana')
+
+# Chaining Decorators in Python
+def put_stars(f):
+    def inner(*arg, **kwarg):
+        print(30*'*')
+        f(*arg,**kwarg)
+        print(30*'*')
+    return inner
+
+def put_at(f):
+    def inner(*arg, **kwarg):
+        print(30*'@')
+        f(*arg,**kwarg)
+        print(30*'@')
+    return inner
+
+@put_at
+@put_stars
+def say(msg):
+    print(msg)
+
+
+@put_stars
+@put_at
+def say2(msg):
+    print(msg)
+
+
+say('Hello wit *')
+say2('Hello with @')
+
+
+# I got decorated
+# I'm a simple function...
+# Zero division is not allowed...
+# Extra job Done!
+# Apple
+# Apple Cherry Banana
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# ******************************
+# Hello wit *
+# ******************************
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# ******************************
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# Hello with @
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# ******************************
+</code></pre>
                                     </div>
-
-
-                                </ul>
+                                </div>
                             </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingLambda">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseLambda" aria-expanded="false"
+                                        aria-controls="collapseLambda">
+                                        Lambda, Anonymous function
+                                    </button>
+                                </h2>
+                                <div id="collapseLambda" class="accordion-collapse collapse"
+                                    aria-labelledby="headingLambda" data-bs-parent="#accordionPython">
+                                    <div class="accordion-body" style="text-align: justify ;">
+                                        <pre class="python-exec"><code class="language-python"># Syntax of Lambda Function in python
+# lambda arguments: expression
+
+makesum = lambda x,y : x+y
+print(makesum(2,3))
+
+# Use of Lambda Function in python
+# We use lambda functions when we require a nameless function for a 
+# short period of time.
+# In Python, we generally use it as an argument to a higher-order
+# function (a function that takes in other functions as arguments).
+# Lambda functions are used along with built-in functions like 
+# filter(), map() etc.
+
+# to see examples of using lambda with built-in functions,
+# see built-in functions in python topic</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingLocalGlobal">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseLocalGlobal" aria-expanded="false"
+                                        aria-controls="collapseLocalGlobal">
+                                        Local global and nonlocal
+                                    </button>
+                                </h2>
+                                <div id="collapseLocalGlobal" class="accordion-collapse collapse"
+                                    aria-labelledby="headingLocalGlobal" data-bs-parent="#accordionPython">
+                                    <div class="accordion-body" style="text-align: justify ;">
+                                        <pre class="python-exec"><code class="language-python"># global variables are read-only in the functions local space
+x = "GLOBAL"
+def foo():
+    # x = x + "IS COOL" # UnboundLocalError: local variable 'x' referenced before assignment
+    print("x inside:", x) # x inside: GLOBAL
+foo()
+print("x outside:", x) # x outside: GLOBAL
+
+
+# local variables which are defined inside functions
+# are not recognized outside of the function
+def foo():
+    y = "local"
+foo()
+print(y) # NameError: name 'y' is not defined
+
+
+# Creating a local variable in python
+def foo():
+    y = "local"
+    print(y)
+foo()
+
+
+# write on read-only globals inside the function's local space
+# accessing it with """global""" keyword
+x = "global "
+def foo():
+    global x
+    y = "local"
+    x = x * 2
+    print(x) # global global
+    print(y) # local
+foo()
+print(f'x after calling foo is >>> {x}') # x after calling foo is >>> global global
+
+
+x = 5
+def foo():
+    x = 10
+    print("local x:", x)
+print("global x before local x in function:", x)
+foo()
+print("global x after local x in function:", x)
+# global x before local x in function: 5
+# local x: 10
+# global x after local x in function: 5
+
+
+# changin global variable in nested function
+x = 'global'
+def outer():
+    x = "local"
+    print("outer function's x is >>> ", x)
+    def inner():
+        global x
+        x = "nonlocal"
+        print("inner x is >>> ", x)
+    inner()
+    print("outer function's x is >>> ", x)
+outer()
+print("global x is >>> " , x)
+# outer function's x is >>>  local
+# inner x is >>>  nonlocal
+# outer function's x is >>>  local
+# global x is >>>  nonlocal
+
+
+# changin local variable of outer function in the nested function's scope
+x = 'global'
+def outer():
+    x = "local"
+    print("outer function's x is >>> ", x)
+    def inner():
+        # x = x * 2 # will raise error if we comment 2 lines below but reading is ok
+        nonlocal x
+        x = "nonlocal"
+        print("inner x is >>> ", x)
+    inner()
+    print("outer function's x is >>> ", x)
+outer()
+print("global x is >>> " , x)
+# outer function's x is >>>  local
+# inner x is >>>  nonlocal
+# outer function's x is >>>  nonlocal
+# global x is >>>  global</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingClosures">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseClosures" aria-expanded="false"
+                                        aria-controls="collapseClosures">
+                                        Closures
+                                    </button>
+                                </h2>
+                                <div id="collapseClosures" class="accordion-collapse collapse"
+                                    aria-labelledby="headingClosures" data-bs-parent="#accordionPython">
+                                    <div class="accordion-body" style="text-align: justify ;">
+                                        <pre class="python-exec"><code class="language-python">def print_msg(msg):
+    # This is the outer enclosing function
+    def printer():
+        # This is the nested function
+        print(msg)
+    return printer  # returns the nested function
+
+# Now let's try calling this function.
+# Output: Hello! "Hello" is still remembered even when the
+# execution of print_msg is over and it has returned a function
+another = print_msg("Hello")
+del print_msg
+another()
+# error = print_msg("Hello") # NameError
+
+
+
+# from programize
+# The print_msg() function was called with the string "Hello"
+# and the returned function was bound to the name another. On 
+# calling another(), the message was still remembered although
+# we had already finished executing the print_msg() function.
+# This technique by which some data ("Hello in this case) gets
+# attached to the code is called closure in Python.
+# This value in the enclosing scope is remembered even when the
+# variable goes out of scope or the function itself is removed
+# from the current namespace.
+
+
+# When do we have closures?
+# As seen from the above example, we have a closure in Python when a
+# nested function references a value in its enclosing scope.
+# The criteria that must be met to create closure in Python are 
+# summarized in the following points:
+# @ We must have a nested function (function inside a function).
+# @ The nested function must refer to a value defined in the enclosing function.
+# @ The enclosing function must return the nested function.
+
+
+# When to use closures?
+# So what are closures good for?
+# Closures can avoid the use of global values and provides some form of 
+# data hiding. It can also provide an object oriented solution to the problem.
+# When there are few methods (one method in most cases) to be implemented in 
+# a class, closures can provide an alternate and more elegant solution. But 
+# when the number of attributes and methods get larger, it's better to 
+# implement a class.
+# Here is a simple example where a closure might be more preferable than 
+# defining a class and making objects. But the preference is all yours.
+# example below:
+
+def make_multiplier_of(n):
+    def multiplier(x):
+        return n * x
+    return multiplier
+x3 = make_multiplier_of(3)
+x5 = make_multiplier_of(5)
+print(x3(5)) # 15
+print(x5(5)) # 25
+print(x3(x5(2))) # 30
+
+# Python Decorators make an extensive use of closures as well.
+print(x3.__closure__) # (<cell at 0x0000014BE1BD6E50: int object at 0x00007FFF9A1816E0>,)
+print(x3.__closure__[0].cell_contents) # 3
+print(x5.__closure__[0].cell_contents) # 5</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOOP">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOOP" aria-expanded="false" aria-controls="collapseOOP">
+                                        OOP
+                                    </button>
+                                </h2>
+                                <div id="collapseOOP" class="accordion-collapse collapse" aria-labelledby="headingOOP"
+                                    data-bs-parent="#accordionPython">
+                                    <div class="accordion-body" style="text-align: justify ;">
+                                        <h4>Class attributes and object attributes</h4>
+                                        <pre class="python-exec"><code class="language-python">class Parrot:
+    # class attribute, same for all instances 
+    species = "bird"
+    # instance attribute
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+# instantiate the Parrot class
+blu = Parrot("Blu", 10)
+woo = Parrot("Woo", 15)
+# access the class attributes
+print("Blu is a {}".format(blu.__class__.species))
+print("Woo is also a {}".format(woo.__class__.species))
+# access the instance attributes
+print("{} is {} years old".format( blu.name, blu.age))
+print("{} is {} years old".format( woo.name, woo.age))
+# Blu is a bird
+# Woo is also a bird
+# Blu is 10 years old
+# Woo is 15 years old
+</code></pre>
+                                        <h4>Methods</h4>
+                                        <pre class="python-exec"><code class="language-python">class Parrot:
+    
+    # instance attributes
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    
+    # instance method
+    def sing(self, song):
+        return "{} sings {}".format(self.name, song)
+
+    def dance(self):
+        return "{} is now dancing".format(self.name)
+
+# instantiate the object
+blu = Parrot("Blu", 10)
+
+# call our instance methods
+print(blu.sing("'Happy'"))
+print(blu.dance())
+</code></pre>
+
+                                        <h4>Inheritance</h4>
+                                        <pre class="python-exec"><code class="language-python"># parent class
+class Bird:
+    def __init__(self):
+        print("Bird is ready")
+    def whoisThis(self):
+        print("Bird")
+    def swim(self):
+        print("Swim faster")
+# child class
+class Penguin(Bird):
+    def __init__(self):
+        # call super() function
+        print("Penguin is getting ready")
+        super().__init__()
+        print("Penguin is ready")
+    def whoisThis(self):
+        print("Penguin")
+    def run(self):
+        print("Run faster")
+peggy = Penguin()
+peggy.whoisThis()
+peggy.swim()
+peggy.run()
+
+
+# In the above program, we created two classes i.e. Bird (parent class) 
+# and Penguin (child class). The child class inherits the functions of 
+# parent class. We can see this from the swim() method.
+
+# Again, the child class modified the behavior of the parent class. 
+# We can see this from the whoisThis() method. Furthermore, we extend 
+# the functions of the parent class, by creating a new run() method.
+
+# Additionally, we use the super() function inside the __init__() 
+# method. This allows us to run the __init__() method of the parent 
+# class inside the child class.</code></pre>
+
+                                        <h4>Polymorphism</h4>
+                                        <p>
+                                            Polymorphism is the ability of object of different types to be handled by a common interface.
+                                        </p>
+                                        <pre class="python-exec"><code class="language-python">class Parrot:
+    def fly(self):
+        print("Parrot can fly")
+    def swim(self):
+        print("Parrot can't swim")
+class Penguin:
+    def fly(self):
+        print("Penguin can't fly")
+    def swim(self):
+        print("Penguin can swim")
+# common interface
+def flying_test(bird):
+    bird.fly()
+#instantiate objects
+blu = Parrot()
+peggy = Penguin()
+# passing the object
+flying_test(blu)
+flying_test(peggy)
+</code></pre>
+
+                                        <h4>Encapsulation (including private attributes)</h4>
+                                        <p>
+                                            <strong>Encapsulation</strong> is wrapping code and data together into a
+                                            single unit.
+                                            Class is an example of encapsulation, because it wraps the method
+                                            and property. Encapsulation - is the process of enclosing data and
+                                            functions manipulating this data into a single unit, so that to hide
+                                            the internal implementation from the outside world.
+                                        </p>
+                                        <pre class="python-exec"><code class="language-python">class Computer:
+    def __init__(self):
+        self.__maxprice = 900
+    def sell(self):
+        print("Selling Price: {}".format(self.__maxprice))
+    def setMaxPrice(self, price):
+        self.__maxprice = price
+
+c = Computer()
+c.sell()
+
+# print(c.__dir__())
+# change the price
+# c._Computer__maxprice = 1000 # how to fuck with python
+c.__maxprice = 1000
+c.sell()
+
+# using setter function
+c.setMaxPrice(1000)
+c.sell()
+
+
+# Using OOP in Python, we can restrict access to methods and variables. 
+# This prevents data from direct modification which is called 
+# encapsulation. In Python, we denote private attributes using 
+# underscore as the prefix i.e single _ or double __.
+
+
+# _foo: this is just a convention, a way for the programmer to indicate 
+# that the variable is private (whatever that means in Python).
+
+# __foo: this has real meaning: the interpreter replaces this name with 
+# _classname__foo as a way to ensure that the name will not overlap with 
+# a similar name in another class.
+
+
+# Here, we have tried to modify the value of __maxprice outside of 
+# the class. However, since __maxprice is a private variable, this 
+# modification is not seen on the output.
+
+# As shown, to change the value, we have to use a setter function 
+# i.e setMaxPrice() which takes price as a parameter.
+</code></pre>
+
+                                        <h4>Abstraction</h4>
+                                        <p>
+                                            <strong>Abstraction</strong> is hiding internal details and showing
+                                            functionality only.
+                                            Abstraction focus on what the object does instead of how it does.
+                                            It provides generalized view of classes.
+
+                                            Here, <code>ToString()</code> is abstraction. And how this mechanism number
+                                            variable converted to string and initialize into aStringNumber is
+                                            encapsulation.
+                                        </p>
+
+                                        <pre class="python-exec"><code class="language-python">int number = 5;
+string aStringNumber = number.ToString();</code></pre>
+
+                                        <pre class="python-exec"><code class="language-python"># Example of abstraction
+class Item():
+
+    ...
+    ...
+    ...
+
+    def __connect(self, smpt_server):
+        print('Connecting...')
+
+    def __prepare_body(self):
+        return f"""
+        hello someone.
+        we have {self.name} {self.quantity} times.
+        regards, rick...
+        """
+
+    def __send(self):
+        pass
+
+    def send_email(self):
+        self.__connect("")
+        self.__prepare_body()
+        self.__send()
+        print('email sent...')
+
+
+item1 = Item("MyItem", 750, 6)
+# item1._Item__connect("")
+item1.__connect("") # AttributeError: 'Item' object has no attribute '__connect'</code></pre>
+
+                                        <h4>Real world example, Encapsulation vs Abstraction</h4>
+                                        <p>
+                                            Let us take a real world example of calculator. Encapsulation is the
+                                            internal circuits, battery, etc., that combine to make it a calculator.
+                                            Abstraction is the different buttons like on-off, clear and other buttons
+                                            provided to operate it.
+                                        </p>
+
+                                        <h4>Classmethod</h4>
+
+                                        <p>The class method can be called both by the class and its object.</p>
+                                        <pre class="python-exec"><code class="language-python"></code>Class.classmethod()
+Or even
+Class().classmethod()</pre>
+
+                                        <pre class="python-exec"><code class="language-python">class Person:
+    age = 25
+    @classmethod
+    def printAge(cls):
+        print('The age is:', cls.age)
+# or use this to create printAge class method
+# Person.printAge = classmethod(Person.printAge)
+Person.printAge()
+# In the final line, we call printAge without creating a Person object 
+# like we do for static methods. This prints the class variable age.
+
+
+
+# When do you use the class method?
+# Factory methods: Factory methods are those methods that return a 
+# class object """(like constructor) for different use cases""".(class method
+# as constructor)
+from datetime import date
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    @classmethod
+    def fromBirthYear(cls, name, birthYear):
+        return cls(name, date.today().year - birthYear)
+    def display(self):
+        print(self.name + "'s age is: " + str(self.age))
+person = Person('Adam', 19) # Adam's age is: 19
+person.display()
+person1 = Person.fromBirthYear('John',  1990)
+person1.display() # John's age is: 32
+# Here, we have two class instance creator, a constructor and a 
+# fromBirthYear method. The constructor takes normal parameters name 
+# and age. While, fromBirthYear takes class, name and birthYear, 
+# calculates the current age by subtracting it with the current year 
+# and returns the class instance. The fromBirthYear method takes Person 
+# class (not Person object) as the first parameter cls and returns the 
+# constructor by calling cls(name, date.today().year - birthYear), which 
+# is equivalent to Person(name, date.today().year - birthYear)
+
+
+
+# should we use class method or static method as constructor in base class?
+from datetime import date
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    @staticmethod
+    def fromFathersAge(name, fatherAge, fatherPersonAgeDiff):
+        return Person(name, date.today().year - fatherAge + fatherPersonAgeDiff)
+    @classmethod
+    def fromBirthYear(cls, name, birthYear):
+        return cls(name, date.today().year - birthYear)
+    def display(self):
+        print(self.name + "'s age is: " + str(self.age))
+class Man(Person):
+    sex = 'Male'
+man = Man.fromBirthYear('John', 1985)
+print(isinstance(man, Man)) # True
+man1static = Man.fromFathersAge('John', 1965, 20)
+print(isinstance(man1static, Man)) # False
+print(man1static.__class__) # &#60;class '__main__.Person'>
+print(man.__class__) # &#60;class '__main__.Man'>
+# Here, using a static method to create a class instance wants us to hardcode the 
+# instance type during creation. This clearly causes a problem when inheriting 
+# Person to Man. fromFathersAge method doesn't return a Man object but its base 
+# class Person's object. This violates the OOP paradigm. Using a class method as 
+# fromBirthYear can ensure the OOP-ness of the code since it takes the first 
+# parameter as the class itself and calls its factory method.
+</code></pre>
+
+                                        <h4>Static method</h4>
+                                        <p>
+                                            Static methods, much like class methods, are methods that are bound to a
+                                            class rather than its object.
+
+                                            They do not require a class instance creation. So, they are not dependent on
+                                            the state of the object.
+
+                                            The difference between a static method and a class method is:
+                                            <ul>
+                                                <li>
+                                                    Static method knows nothing about the class and just deals with the
+                                                    parameters.
+                                                </li>
+                                                <li>
+                                                    Class method works with the class since its parameter is always the
+                                                    class itself.
+                                                </li>
+                                            </ul>
+
+
+                                            They can be called both by the class and its object.
+                                            <pre class="python-exec"><code class="language-python">Class.staticmethodFunc()
+or even
+Class().staticmethodFunc()</code></pre>
+                                        </p>
+                                        <pre class="python-exec"><code class="language-python"># When do you use static methods?
+# 1. Grouping utility function to a class
+
+# Static methods have a limited use case because, like class methods or any other 
+# methods within a class, they cannot access the properties of the class itself.
+
+# However, when you need a utility function that doesn't access any properties of 
+# a class but makes sense that it belongs to the class, we use static functions.
+
+#  Create a utility function as a static method
+class Dates:
+
+    def __init__(self, date):
+        self.date = date
+    def getDate(self):
+        return self.date
+    @staticmethod
+    def toDashDate(date):
+        return date.replace("/", "-")
+
+date = Dates("15-12-2016")
+dateFromDB = "15/12/2016"
+dateWithDash = Dates.toDashDate(dateFromDB)
+
+if(date.getDate() == dateWithDash):
+    print("Equal") # if condition is true prints Equal
+else:
+    print("Unequal")</code></pre>
+
+                                        <h4>Class method vs Static method</h4>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        <p>Static Method</p>
+                                                    </th>
+                                                    <th>
+                                                        <p>Class Method</p>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p>The <code>@staticmethod</code> decorator is used to create a
+                                                            static method.</p>
+                                                    </td>
+                                                    <td>
+                                                        <p>The <code>@classmethod</code> decorator is used to create a
+                                                            class method.</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <p>No specific parameters are used.</p>
+                                                    </td>
+                                                    <td>
+                                                        <p>It takes cls as the first parameter.</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <p>It cannot access or modify the class state.</p>
+                                                    </td>
+                                                    <td>
+                                                        <p>It can access or modify the class state.</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <p>Static methods do not know about the class state. These
+                                                            methods are used to do some utility tasks by taking some
+                                                            parameters.</p>
+                                                    </td>
+                                                    <td>
+                                                        <p>The class method takes the class as a parameter to know about
+                                                            the state of that class.</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <p>Static methods are used to do some utility tasks.</p>
+                                                    </td>
+                                                    <td>
+                                                        <p>Class methods are used for factory methods.</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <p>It contains totally self-contained code.</p>
+                                                    </td>
+                                                    <td>
+                                                        <p>It can modify class-specific details.</p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <h4>Property</h4>
+                                        <p>
+                                            By using property() method, we can modify our class and implement the value constraint without any change required to the client code. So that the implementation is backward compatible.
+                                            The property() takes four optional parameters:
+                                            <ul>
+                                                <li>
+                                                    fget (optional) - Function for getting the attribute value. Defaults to None.
+                                                </li>
+                                                <li>
+                                                    fset (optional) - Function for setting the attribute value. Defaults to None.
+                                                </li>
+                                                <li>
+                                                    fdel (optional) - Function for deleting the attribute value. Defaults to None.
+                                                </li>
+                                                <li>
+                                                    doc (optional) - A string that contains the documentation (docstring) for the attribute. Defaults to None.
+                                                </li>
+                                            </ul>
+                                        </p>
+<pre class="python-exec"><code class="language-python">class Person:
+    def __init__(self, name):
+        self._name = name
+
+    def get_name(self):
+        print('Getting name')
+        return self._name
+
+    def set_name(self, value):
+        print('Setting name to ' + value)
+        self._name = value
+
+    def del_name(self):
+        print('Deleting name')
+        del self._name
+
+    # Set property to use get_name, set_name
+    # and del_name methods
+    name = property(get_name, set_name, del_name, 'Name property')
+
+p = Person('Adam')
+print(p.name)
+p.name = 'John'
+del p.name
+
+# Getting name
+# The name is: Adam
+# Setting name to John
+# Deleting name
+
+</code></pre>
+<pre class="python-exec"><code class="language-python"># Using @property decorator
+
+class Person:
+    def __init__(self, name):
+        self._name = name
+
+    @property
+    def name(self):
+        print('Getting name')
+        return self._name
+
+    @name.setter
+    def name(self, value):
+        print('Setting name to ' + value)
+        self._name = value
+
+    @name.deleter
+    def name(self):
+        print('Deleting name')
+        del self._name
+
+p = Person('Adam')
+print('The name is:', p.name)
+p.name = 'John'
+del p.name
+
+# Getting name
+# The name is: Adam
+# Setting name to John
+# Deleting name</code></pre>
+                                            <h4>Super</h4>
+                                            <p>
+                                                In Python, super() has two major use cases:
+                                                <ul>
+                                                    <li>                                                
+                                                        Allows us to avoid using the base class name explicitly
+                                                    </li>
+                                                    <li>                                                
+                                                        Working with Multiple Inheritance
+                                                    </li>
+                                                </ul>
+                                            </p>
+<pre class="python-exec"><code class="language-python">class Car:
+    def __init__(self,type):
+        print(f'{type} is a type of car.')
+
+class Truck(Car):
+    def __init__(self, truck_name):
+        print(f'{truck_name} is a truck.')
+        super().__init__('Truck')
+        
+ford = Truck('F-150')
+
+# Since we do not need to specify the name of the base 
+# class when we call its members, we can easily change 
+# the base class name (if we need to). class Vehicle: ...
+
+
+# Super and multiple inheritance:
+class Car:
+    def __init__(self,type):
+        print(f'{type} is a type of car.')
+
+class Truck(Car):
+    def __init__(self, truck_name):
+        print(f'{truck_name} is a truck.')
+        super().__init__('Truck')
+
+class BigTruck(Truck):
+    def __init__(self, big_truck_name):
+        print(f'{big_truck_name} is a big truck.')
+        super().__init__(big_truck_name)
+
+class CoolTruck(Truck):
+    def __init__(self, cool_truck_name):
+        print(f'{cool_truck_name} is a cool truck!')
+        super().__init__(cool_truck_name)
+
+class PopularTruck(BigTruck, CoolTruck):
+    def __init__(self, popular_truck_name):
+        print(f'{popular_truck_name} is a popular truck.')
+        super().__init__(popular_truck_name)
+
+f150 = PopularTruck('F-150')
+print('')
+# F-150 is a popular truck.
+# F-150 is a big truck.
+# F-150 is a cool truck!
+# F-150 is a truck.
+# Truck is a type of car.
+
+chevi = BigTruck('chevi')
+print('')
+# chevi is a big truck.
+# chevi is a truck.
+# Truck is a type of car.
+
+
+# Method Resolution Order (MRO)
+# Method Resolution Order (MRO) is the order in which methods should be 
+# inherited in the presence of multiple inheritance. You can view the MRO 
+# by using the __mro__ attribute.
+print(PopularTruck.__mro__)
+# (
+# &#60;class '__main__.PopularTruck'>, 
+# &#60;class '__main__.BigTruck'>, 
+# &#60;class '__main__.CoolTruck'>, 
+# &#60;class '__main__.Truck'>, 
+# &#60;class '__main__.Car'>, 
+# &#60;class 'object'>
+# )
+# in the example above Big truck appeared first and then the cool truck
+# because BigTruck appeared first and then CoolTruck
+</code></pre>
+
+<h4>Duck typing</h4>
+<p>
+    Type doesn't matter, but behavior does, so if something acts like a duck we will call it duck, no matter what it is. Polymorphism is the ability of object of different types to be handled by a common interface. While duck typing, is a kind of dynamic typing that allows objects of different types to respond to the same methods.
+</p>
+
+<pre class="python-exec"><code class="language-python">class Duck:
+    def quak(self):
+        return('quak')
+    def walk(self):
+        return('funny walk')
+    def swim(self):
+        return('awesom swiming')
+
+
+class TrainedDog:
+    def quak(self):
+        return('quak')
+    def walk(self):
+        return('funny walk')
+    def swim(self):
+        return('awesom swiming')
+    def guarding(self):
+        return('watching neighborhood')
+
+dog = TrainedDog()
+duck = Duck()
+
+if (
+    dog.quak() == duck.quak() and
+    dog.walk() == duck.walk() and
+    dog.swim() == duck.swim()
+):
+    print('dog is a duck')</code></pre>
+
+
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingLoading">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseLoading" aria-expanded="false"
+                                        aria-controls="collapseLoading">
+                                        Loading
+                                    </button>
+                                </h2>
+                                <div id="collapseLoading" class="accordion-collapse collapse" aria-labelledby="headingLoading"
+                                    data-bs-parent="#accordionPython">
+                                    <div class="accordion-body" style="text-align: justify ;">
+                                        <ul>
+                                            <div class="text-muted">
+                                                
+                                                <li>*args and **kwargs</li>
+                                                <li>Rgex</li>
+                                                <li>Design patterns</li>
+                                                <li>Multiprocessing</li>
+                                                <li>Async programming and asyncio</li>
+                                                <li>Datetime</li>
+                                                <li>Files and directories</li>
+                                                <li>Python Modules</li>
+                                                <li>Package</li>
+                                                <li>solid grasp</li>
+                                                <li>Context manager</li>
+                                                <li>GIL and multithreadin</li>
+                                            </div>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+                            
+                                
+                                
+                            
 
                             <!-- <div class="accordion-item">
                                 <h2 class="accordion-header" id="heading{{fillme}}">
@@ -1048,6 +2004,7 @@ print(result) # 10</code></pre>
 
 
         </div>
+        <!--DIV of main accordion-->
 
 
 
@@ -1076,7 +2033,7 @@ print(result) # 10</code></pre>
 
 
 
-        <small class="text-muted"><i>some codes are obtianed from [programiz, geeksforgeeks,]</i></small>
+        <small class="text-muted"><i>some codes are obtianed from resources in web</i></small>
     </main>
 
 
