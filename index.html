@@ -88,26 +88,27 @@
                         <!-- #################################################### -->
                         <div class="accordion" id="accordionDjango">
 
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingOne">
+                            <!-- <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading{{fillme}}">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                        Intorduction
+                                        data-bs-target="#collapse{{fillme}}" aria-expanded="false"
+                                        aria-controls="collapse{{fillme}}">
+                                        {{fillme}}
                                     </button>
                                 </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
-                                    data-bs-parent="#accordionDjango">
-                                    <div class="accordion-body" style="text-align:justify ;">
-                                        <strong>Django is a high-level Python web framework</strong> that encourages
-                                        rapid development and clean,
-                                        pragmatic design. Built by experienced developers, it takes care of much of the
-                                        hassle
-                                        of web development, so you can focus on writing your app without needing to
-                                        reinvent the
-                                        wheel. It’s free and open source.
+                                <div id="collapse{{fillme}}" class="accordion-collapse collapse" aria-labelledby="heading{{fillme}}"
+                                    data-bs-parent="#accordionPython">
+                                    <div class="accordion-body" style="text-align: justify ;">
+                                        According to tutorials middlewares are hook to requests, and they can manipulate
+                                        them, Django's
+                                        SessionMiddleware and AuthenticationMiddleware are based on this concept too,
+                                        they receive request
+                                        and see how the user status is, and based on that observation they decide what
+                                        do,
+                                        logging in, force logout, etc.
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingFour">
@@ -120,13 +121,158 @@
                                 <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
                                     data-bs-parent="#accordionDjango">
                                     <div class="accordion-body" style="text-align: justify ;">
-                                        According to tutorials middlewares are hook to requests, and they can manipulate
-                                        them, Django's
-                                        SessionMiddleware and AuthenticationMiddleware are based on this concept too,
-                                        they receive request
-                                        and see how the user status is, and based on that observation they decide what
-                                        do,
-                                        logging in, force logout, etc.
+                                        <h4>introduction</h4>
+                                        <p>
+                                            In simple words a Middleware is something which acts as a bridge between two
+                                            parts of a program or the system that enables communication between them.
+                                            And technically Middleware is a framework of hooks into Django’s
+                                            request/response processing. It’s a light, low-level “plugin” system for
+                                            globally altering Django’s input or output. Each middleware component is
+                                            responsible for doing some specific function.
+                                            As shown in picutre below order of executing them is FILO.
+                                        </p>
+
+                                        <img class="img-fluid mx-auto d-block my-2 p-2 col-xs-12 col-sm-12 col-md-12 col-lg-9 col-xl-5 col-xxl-5"
+                                            src="img/django-middleware-1.png" alt="">
+
+                                        <p>
+                                            Django's SessionMiddleware and AuthenticationMiddleware are based on this
+                                            concept too,
+                                            they receive request and see how the user status is, and based on that
+                                            observation they decide what
+                                            do, logging in, force logout, etc. <strong>
+                                                middlewares take incoming request, work on it, validate it and pass it to next, until last one passes it to view and view passes the response to the last middleware and it goes reverse until firstmiddleware
+                                            </strong>
+                                        </p>
+
+                                        <img class="img-fluid mx-auto d-block my-2 p-2 col-xs-12 col-sm-12 col-md-12 col-lg-9 col-xl-5 col-xxl-5"
+                                            src="img/django-middleware-2.png" alt="">
+                                        <h4>
+                                            Special methods of class-based middleware
+                                        </h4>
+                                        <ul>
+                                            <li><code>process_request(self, request):</code> The request object will be
+                                                created while Django goes through process_request method in each
+                                                middleware. After that, it resolves which view to be called soon after
+                                                the request object is created with the help of ROOT_URLCONF key in
+                                                settings file.</li>
+                                            <li><code>process_view(request, view_func, view_args, view_kwargs):</code>
+                                                request is the HttpRequest object and view_func is the function that is
+                                                being called. It will be called just before calling the view.</li>
+                                            <li><code>process_response(self, request, response):</code> The response
+                                                will be the final output Django will process after executing the
+                                                process_response method in each middleware which will be HttpResponse
+                                                object.</li>
+                                            <li><code>process_template_response(request, response):</code> request is an
+                                                HttpRequest object. response is the TemplateResponse object (or
+                                                equivalent) returned by a Django view or by a middleware.</li>
+                                            <li><code>process_exception(request, exception):</code> request is an
+                                                HttpRequest object. exception is an Exception object raised by the view
+                                                function. This method is called when the view raises an exception.</li>
+                                        </ul>
+                                        
+                                        <small><p class="text-danger"><i>New-style middleware does not call process_request and process_response by default. This functionally has been replaced with _call_ and the get_response function that is passed to _init_.</i></p></small>
+
+                                        <h4>Custom middleware in django</h4>
+                                        <p>
+                                            Since Django 1.10, a middleware class must accept a get_response argument in
+                                            its __init__() method and provide a __call__() method.
+                                        </p>
+                                        <pre class="python-exec"><code class="language-python">class CustomMiddleware(object):
+    def __init__(self, get_response):
+        """
+        One-time configuration and initialisation.
+        """
+        self.get_response = get_response
+
+    def __call__(self, request):
+        """
+        Code to be executed for each request before the view (and later
+        middleware) are called.
+        """
+        response = self.get_response(request)
+        return response
+
+    def process_view(self, request, view_func, view_args, view_kwargs):
+        """
+        Called just before Django calls the view.
+        """
+        return None
+
+    def process_exception(self, request, exception):
+        """
+        Called when a view raises an exception.
+        """
+        return None
+
+    def process_template_response(self, request, response):
+        """
+        Called just after the view has finished executing.
+        """
+        return response</code></pre>
+                                        <p>
+                                            The process_view(), process_exception() and process_template_response() are
+                                            special hooks, called by Django when processing the middleware, you may
+                                            define in your middleware class. In the example above, the implemented hooks
+                                            will do nothing special expect for making sure that Django will call the
+                                            next middleware to further process the response/request. To activate the
+                                            middleware component, add it to the MIDDLEWARE list in your Django settings.
+                                        </p>
+                                        <pre class="python-exec"><code class="language-python">MIDDLEWARE = [
+    # Default Django middleware
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # Add your custom middleware
+    'path.to.your.middleware.CustomMiddleware',
+]</code></pre>
+
+<p>A self-written example:</p>
+<pre class="python-exec"><code class="language-python">from django.conf import settings
+
+class SimpleMiddleware:
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+        # One-time configuration and initialization.
+
+    def __call__(self, request):
+        # Code to be executed for each request before
+        # the view (and later middleware) are called.
+        print("before responsevvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv")
+        response = self.get_response(request)
+        print("After response^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+        # Code to be executed for each request/response after
+        # the view is called.
+        return response
+
+    def process_view(self, request, view_func, view_args, view_kwargs):
+        print('Called just before Django calls the view.........')
+        return None
+
+    def process_exception(self, request, exception):
+        if settings.DEBUG:
+            print(f'{exception.__class__.__name__}:  {exception} ERROR HAPPENED DANGER!')
+        return None
+
+    def process_template_response(self, request, response):
+        """
+        Called just after the view has finished executing.
+        """
+        # only called when we have template response
+        return response
+
+    # Middlewares are hooks to modify Django request or response objects.
+    # You can use middleware if you want to modify the request i.e HttpRequest
+    # object which is sent to the view. Or you might want to modify the
+    # HttpResponse object returned from the view. Both these can be achieved
+    # by using middleware.
+</code></pre>
                                     </div>
                                 </div>
                             </div>
@@ -1379,7 +1525,8 @@ peggy.run()
 
                                         <h4>Polymorphism</h4>
                                         <p>
-                                            Polymorphism is the ability of object of different types to be handled by a common interface.
+                                            Polymorphism is the ability of object of different types to be handled by a
+                                            common interface.
                                         </p>
                                         <pre class="python-exec"><code class="language-python">class Parrot:
     def fly(self):
@@ -1714,24 +1861,30 @@ else:
 
                                         <h4>Property</h4>
                                         <p>
-                                            By using property() method, we can modify our class and implement the value constraint without any change required to the client code. So that the implementation is backward compatible.
+                                            By using property() method, we can modify our class and implement the value
+                                            constraint without any change required to the client code. So that the
+                                            implementation is backward compatible.
                                             The property() takes four optional parameters:
                                             <ul>
                                                 <li>
-                                                    fget (optional) - Function for getting the attribute value. Defaults to None.
+                                                    fget (optional) - Function for getting the attribute value. Defaults
+                                                    to None.
                                                 </li>
                                                 <li>
-                                                    fset (optional) - Function for setting the attribute value. Defaults to None.
+                                                    fset (optional) - Function for setting the attribute value. Defaults
+                                                    to None.
                                                 </li>
                                                 <li>
-                                                    fdel (optional) - Function for deleting the attribute value. Defaults to None.
+                                                    fdel (optional) - Function for deleting the attribute value.
+                                                    Defaults to None.
                                                 </li>
                                                 <li>
-                                                    doc (optional) - A string that contains the documentation (docstring) for the attribute. Defaults to None.
+                                                    doc (optional) - A string that contains the documentation
+                                                    (docstring) for the attribute. Defaults to None.
                                                 </li>
                                             </ul>
                                         </p>
-<pre class="python-exec"><code class="language-python">class Person:
+                                        <pre class="python-exec"><code class="language-python">class Person:
     def __init__(self, name):
         self._name = name
 
@@ -1762,7 +1915,7 @@ del p.name
 # Deleting name
 
 </code></pre>
-<pre class="python-exec"><code class="language-python"># Using @property decorator
+                                        <pre class="python-exec"><code class="language-python"># Using @property decorator
 
 class Person:
     def __init__(self, name):
@@ -1792,19 +1945,19 @@ del p.name
 # The name is: Adam
 # Setting name to John
 # Deleting name</code></pre>
-                                            <h4>Super</h4>
-                                            <p>
-                                                In Python, super() has two major use cases:
-                                                <ul>
-                                                    <li>                                                
-                                                        Allows us to avoid using the base class name explicitly
-                                                    </li>
-                                                    <li>                                                
-                                                        Working with Multiple Inheritance
-                                                    </li>
-                                                </ul>
-                                            </p>
-<pre class="python-exec"><code class="language-python">class Car:
+                                        <h4>Super</h4>
+                                        <p>
+                                            In Python, super() has two major use cases:
+                                            <ul>
+                                                <li>
+                                                    Allows us to avoid using the base class name explicitly
+                                                </li>
+                                                <li>
+                                                    Working with Multiple Inheritance
+                                                </li>
+                                            </ul>
+                                        </p>
+                                        <pre class="python-exec"><code class="language-python">class Car:
     def __init__(self,type):
         print(f'{type} is a type of car.')
 
@@ -1877,12 +2030,16 @@ print(PopularTruck.__mro__)
 # because BigTruck appeared first and then CoolTruck
 </code></pre>
 
-<h4>Duck typing</h4>
-<p>
-    Type doesn't matter, but behavior does, so if something acts like a duck we will call it duck, no matter what it is. Polymorphism is the ability of object of different types to be handled by a common interface. While duck typing, is a kind of dynamic typing that allows objects of different types to respond to the same methods.
-</p>
+                                        <h4>Duck typing</h4>
+                                        <p>
+                                            Type doesn't matter, but behavior does, so if something acts like a duck we
+                                            will call it duck, no matter what it is. Polymorphism is the ability of
+                                            object of different types to be handled by a common interface. While duck
+                                            typing, is a kind of dynamic typing that allows objects of different types
+                                            to respond to the same methods.
+                                        </p>
 
-<pre class="python-exec"><code class="language-python">class Duck:
+                                        <pre class="python-exec"><code class="language-python">class Duck:
     def quak(self):
         return('quak')
     def walk(self):
@@ -1920,7 +2077,6 @@ if (
                                 </div>
                             </div>
 
-
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingLoading">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -1929,12 +2085,12 @@ if (
                                         Loading
                                     </button>
                                 </h2>
-                                <div id="collapseLoading" class="accordion-collapse collapse" aria-labelledby="headingLoading"
-                                    data-bs-parent="#accordionPython">
+                                <div id="collapseLoading" class="accordion-collapse collapse"
+                                    aria-labelledby="headingLoading" data-bs-parent="#accordionPython">
                                     <div class="accordion-body" style="text-align: justify ;">
                                         <ul>
                                             <div class="text-muted">
-                                                
+
                                                 <li>*args and **kwargs</li>
                                                 <li>Rgex</li>
                                                 <li>Design patterns</li>
@@ -1947,25 +2103,13 @@ if (
                                                 <li>solid grasp</li>
                                                 <li>Context manager</li>
                                                 <li>GIL and multithreadin</li>
+                                                <li>server</li>
                                             </div>
                                         </ul>
 
                                     </div>
                                 </div>
                             </div>
-
-
-
-
-
-
-
-
-
-                            
-                                
-                                
-                            
 
                             <!-- <div class="accordion-item">
                                 <h2 class="accordion-header" id="heading{{fillme}}">
@@ -1990,48 +2134,12 @@ if (
                             </div> -->
                         </div>
 
-
-
-
-
-
-
                         <!-- #################################################### -->
                     </div>
                 </div>
             </div>
-
-
-
         </div>
         <!--DIV of main accordion-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         <small class="text-muted"><i>some codes are obtianed from resources in web</i></small>
     </main>
