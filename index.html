@@ -97,7 +97,7 @@
                                     </button>
                                 </h2>
                                 <div id="collapse{{fillme}}" class="accordion-collapse collapse" aria-labelledby="heading{{fillme}}"
-                                    data-bs-parent="#accordionPython">
+                                    data-bs-parent="#accordionDjango">
                                     <div class="accordion-body" style="text-align: justify ;">
                                         According to tutorials middlewares are hook to requests, and they can manipulate
                                         them, Django's
@@ -109,6 +109,815 @@
                                     </div>
                                 </div>
                             </div> -->
+
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingCycle">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseCycle" aria-expanded="false"
+                                        aria-controls="collapseCycle">
+                                        Cycle
+                                    </button>
+                                </h2>
+                                <div id="collapseCycle" class="accordion-collapse collapse"
+                                    aria-labelledby="headingCycle" data-bs-parent="#accordionDjango">
+                                    <div class="accordion-body" style="text-align: justify ;">
+                                        <img class="img-fluid mx-auto d-block my-2 p-2 col-xs-12 col-sm-12 col-md-12 col-lg-9 col-xl-5 col-xxl-5"
+                                            src="img/django-cycle.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingSignals">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseSignals" aria-expanded="false"
+                                        aria-controls="collapseSignals">
+                                        Signals
+                                    </button>
+                                </h2>
+                                <div id="collapseSignals" class="accordion-collapse collapse"
+                                    aria-labelledby="headingSignals" data-bs-parent="#accordionDjango">
+                                    <div class="accordion-body" style="text-align: justify ;">
+                                        <h4>Signals</h4>
+                                        <p>Signals are used to perform any action on modification of a model instance.
+                                            The signals are utilities that help us to connect events with actions. We
+                                            can develop a function that will run when a signal calls it. In other words,
+                                            Signals are used to perform some action on modification/creation of a
+                                            particular entry in Database. For example, One would want to create a
+                                            profile instance, as soon as a new user instance is created in Database</p>
+                                        <h4>signals.py</h4>
+                                        <pre class="python-exec"><code class="language-python">from users.models import Student
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+@receiver(post_save, sender=Student)
+def alert(sender, instance, created, **kwargs):
+    if created:
+        print('---------- A STUDENT INSTANCE IS SAVED ----------')
+    
+# receiver – The function who receives the signal and does something.
+# sender – Sends the signal
+# created — Checks whether the model is created or not
+# instance — created model instance
+# **kwargs –wildcard keyword arguments</code></pre>
+                                        <h4>apps.py</h4>
+<pre class="python-exec"><code class="language-python">class StudentSignal(AppConfig):
+
+name = 'users'
+# verbose_name = 'users'
+
+def ready(self):
+    import users.signals</code></pre>
+
+                                        <h4>__init__.py</h4>
+<pre
+class="python-exec"><code class="language-python">default_app_config = 'users.apps.StudentSignal'</code></pre>
+
+
+
+                                        <h4>Django Built-in Signals</h4>
+
+                                        <p>
+                                            Here you can find a list of some useful built-in signals. It is not
+                                            complete, but those are the most common.
+                                            Model Signals
+
+                                        </p>
+
+
+
+                                        <p class="pt-2 p-0 m-0">django.db.models.signals.pre_init:</p>
+
+                                        <code>receiver_function(sender, *args, **kwargs)</code>
+
+                                        <p class="pt-2 p-0 m-0">django.db.models.signals.post_init:</p>
+
+                                        <code>receiver_function(sender, instance)</code>
+
+                                        <p class="pt-2 p-0 m-0">django.db.models.signals.pre_save:</p>
+
+                                        <code>receiver_function(sender, instance, raw, using, update_fields)</code>
+
+                                        <p class="pt-2 p-0 m-0">django.db.models.signals.post_save:</p>
+
+                                        <code>receiver_function(sender, instance, created, raw, using,
+                                            update_fields)</code>
+
+                                        <p class="pt-2 p-0 m-0">django.db.models.signals.pre_delete:</p>
+
+                                        <code>receiver_function(sender, instance, using)</code>
+
+                                        <p class="pt-2 p-0 m-0">django.db.models.signals.post_delete:</p>
+
+                                        <code>receiver_function(sender, instance, using)</code>
+
+                                        <p class="pt-2 p-0 m-0">django.db.models.signals.m2m_changed:</p>
+
+                                        <code>receiver_function(sender, instance, action, reverse, model, pk_set,
+                                            using)</code>
+
+                                        <h4>Request/Response Signals</h4>
+
+                                        <p class="pt-2 p-0 m-0">django.core.signals.request_started:</p>
+
+                                        <code>receiver_function(sender, environ)</code>
+
+                                        <p class="pt-2 p-0 m-0">django.core.signals.request_finished:</p>
+
+                                        <code>receiver_function(sender, environ)</code>
+
+                                        <p class="pt-2 p-0 m-0">django.core.signals.got_request_exception:</p>
+
+                                        <code>receiver_function(sender, request)</code>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingORM">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseORM" aria-expanded="false" aria-controls="collapseORM">
+                                        ORM
+                                    </button>
+                                </h2>
+                                <div id="collapseORM" class="accordion-collapse collapse" aria-labelledby="headingORM"
+                                    data-bs-parent="#accordionDjango">
+                                    <div class="accordion-body" style="text-align: justify ;">
+                                        <h4>Object Relatoinal Mapping</h4>
+                                        <p>
+                                            One of the most powerful features of Django is its Object-Relational Mapper
+                                            (ORM), which enables you to interact with your database, like you would with
+                                            SQL. In fact, Django's ORM is just a pythonical way to create SQL to query
+                                            and manipulate your database and get results in a pythonic fashion.
+                                            Most common databases are programmed with some form of SQL, but each
+                                            database implements SQL in its own way. SQL can also be complicated and
+                                            difficult to learn. An ORM tool simplifies database programming by providing
+                                            a simple mapping between an object (the ‘O’ in ORM) and the underlying
+                                            database. This means the programmer need not know the database structure,
+                                            nor does it require complex SQL to manipulate and retrieve data.
+                                        </p>
+                                        <img class="img-fluid mx-auto d-block my-2 p-2 col-xs-12 col-sm-12 col-md-12 col-lg-9 col-xl-5 col-xxl-5"
+                                            src="img/django-ORM-1.png" alt="">
+                                        <h4>Get all objects</h4>
+                                        <pre class="python-exec"><code class="language-python">data = models.Student.objects.all()
+# or
+data = models.Student.objects.filter()
+</code></pre>
+                                        <h4>Get a single objects</h4>
+                                        <pre
+                                            class="python-exec"><code class="language-python">data = models.Student.objects.get(pk=2)</code></pre>
+                                        <h4>Get multiple objects(zero or more)</h4>
+                                        <pre class="python-exec"><code class="language-python">data = models.Student.objects.filter(field="ART")
+data = models.Student.objects.filter(field="ART", department=2)
+
+# using Django's field lookups:
+data = models.Student.objects.filter(field__contains="INFO")
+</code></pre>
+                                        <h4>Ordering data</h4>
+                                        <pre class="python-exec"><code class="language-python">data = models.Student.objects.all().order_by('score') # ascending
+# or in reverse order
+data = models.Student.objects.all().order_by('-score') # descending
+</code></pre>
+                                        <h4>Slicing data</h4>
+                                        <p>
+                                            You can also return a fixed number of rows from the database using Python’s
+                                            list slicing syntax.
+                                            This is handy for when you are paginating data or want to return the Top 10,
+                                            say, of a QuerySet.</p>
+                                        <pre
+                                            class="python-exec"><code class="language-python">data = models.Student.objects.all()[0:2]</code></pre>
+                                        <h4>Update</h4>
+                                        <pre class="python-exec"><code class="language-python">models.Student.objects.filter(score=13).update(score=14)
+# update can also modify multiple records:
+models.Student.objects.all().update(score=20)
+</code></pre>
+
+                                        <h4>Delete</h4>
+                                        <pre class="python-exec"><code class="language-python"># delete() can be applied on single or multiple objects
+models.Student.objects.all().delete()</code></pre>
+
+                                        <h4>Q objects</h4>
+                                        <p>
+                                            Keyword argument queries – in filter(), etc. – are “AND”ed together. If you
+                                            need to execute more complex queries (for example, queries with OR
+                                            statements), you can use Q objects.
+
+                                            A Q object (django.db.models.Q) is an object used to encapsulate a
+                                            collection of keyword arguments.
+                                        </p>
+                                        <pre class="python-exec"><code class="language-python">Poll.objects.get(
+    Q(question__startswith='Who'),
+    Q(pub_date=date(2005, 5, 2)) | Q(pub_date=date(2005, 5, 6))
+)</code></pre>
+
+
+
+
+
+                                        <h4>Reverse relationship</h4>
+
+                                        <pre class="python-exec"><code class="language-python">class Group(models.Model):
+    #some attributes
+
+class Profile(models.Model):
+    group = models.ForeignKey(Group)
+    #more attributes</code></pre>
+                                        <p>
+                                            from a profile object, you can do profile.group. But if you want the profile
+                                            objects given the group object, How would you do that? Thats' where related
+                                            name or the reverse relationship comes in. Django, by defaults gives you a
+                                            default related_name which is the ModelName (in lowercase) followed by _set
+                                            - In this case, It would be profile_set, so group.profile_set.However, you
+                                            can override it by specifying a related_name in the ForeignKey field.
+                                        </p>
+                                        <pre class="python-exec"><code class="language-python">class Profile(models.Model):
+group = models.ForeignKey(Group, related_name='profiles')
+#more attributes</code></pre>
+                                        <p>Now, you can access the foreign key as follows:</p>
+                                        <pre
+                                            class="python-exec"><code class="language-python">group.profiles.all()</code></pre>
+
+
+
+
+
+
+
+                                        <h4>Related objects</h4>
+
+                                        <P><strong>ONE-TO-MANY:</strong> If a model has a ForeignKey, instances of that
+                                            model will have access to the related (foreign) object via an attribute of
+                                            the model.
+                                        </P>
+                                        <pre class="python-exec"><code class="language-python"># FORWARD
+models.Student.objects.first().department
+
+# BACKWARD
+# considering related name in Student model: related_name='students'
+models.Department.objects.first().students.all()
+# code below will work if related name is not defined:
+models.Department.objects.first().student_set.all()
+</code></pre>
+
+                                        <p><strong>MANY-TO-MANY:</strong>Both ends of a many-to-many relationship get
+                                            automatic API access to the other end. The API works similar to a “backward”
+                                            one-to-many relationship, above. One difference is in the attribute naming:
+                                            The model that defines the ManyToManyField uses the attribute name of that
+                                            field itself, whereas the “reverse” model uses the lowercased model name of
+                                            the original model, plus '_set' (just like reverse one-to-many
+                                            relationships).</p>
+                                        <pre class="python-exec"><code class="language-python"># FORWARD
+models.Student.objects.first().professor.all()
+
+# BACKWARD
+models.Professor.objects.first().students.all()
+# or
+models.Professor.objects.first().student_set.all()</code></pre>
+
+
+
+                                        <p><strong>ONE-TO-ONE:</strong>relationships are very similar to many-to-one
+                                            relationships. If you define a OneToOneField on your model, instances of
+                                            that model will have access to the related object via an attribute of the
+                                            model. The difference comes in “reverse” queries. The related model in a
+                                            one-to-one relationship also has access to a Manager object, but that
+                                            Manager represents a single object, rather than a collection of objects.</p>
+                                        <pre class="python-exec"><code class="language-python">#FORWARD
+models.Student.objects.first().user
+
+# BACKWARD
+get_user_model().objects.get(firstname="second").student</code></pre>
+
+                                        <h4>select_related and prefetch_related</h4>
+                                        <p><strong>select_related</strong> is used for many-to-one relations:</p>
+                                        <pre class="python-exec"><code class="language-python"># instead of:
+books = Book.objects.all() 
+for book in books: 
+    print(book.author.first_name)
+
+# do this, cause it joins tables and prevents query flood:
+books = Book.objects.select_related('author')
+for book in books: 
+    print(book.author.first_name)</code></pre>
+
+                                        <p><strong>prefetch_related; </strong> select_related is faster and more
+                                            efficient, but select_related could not be used for ManyToManyField. And
+                                            that’s the main prefetch_related advantage.
+                                        </p>
+                                        <pre
+                                            class="python-exec"><code class="language-python">Book.objects.all().prefetch_related('author')</code></pre>
+
+                                        <div class="alert alert-info"><strong>NOTE</strong> - ManyToMany relationships
+                                            should not be handled using SQL because many performance issues could appear
+                                            when dealing with large tables. That's why the prefetch_related method joins
+                                            tables inside Python avoiding making large SQL joins.</div>
+
+                                        <h4>Aggregate and Annotate</h4>
+                                        <p><strong><code>Aggregate</code></strong> calculates values for the entire
+                                            queryset. <strong><code>Annotate</code></strong> calculates summary values
+                                            for each item in the queryset.</p>
+                                        <pre class="python-exec"><code class="language-python">from django.db.models import Avg, Count
+
+print('Aggregation')
+print(models.Student.objects.aggregate(Avg('score')))
+print('Annotation')
+q = models.Student.objects.annotate(p_count=Count('professor'))
+for st in q:
+    print(st.p_count)
+
+# Aggregation
+# {'score__avg': 19.25}
+# Annotation
+# 2
+# 1
+# 1
+# 2
+</code></pre>
+
+                                        <h4>F expressions</h4>
+                                        <p>
+                                            what if you want to compare the value of a model field with another field on
+                                            the same model?
+                                            Django provides F expressions to allow such comparisons. Instances of F()
+                                            act as a reference to a model field within a query. These references can
+                                            then be used in query filters to compare the values of two different fields
+                                            on the same model instance.
+                                        </p>
+
+                                        <pre
+                                            class="python-exec"><code class="language-python">Entry.objects.filter(rating__lt=F('number_of_comments') + F('number_of_pingbacks'))</code></pre>
+
+                                        <h4>(__)</h4>
+                                        <pre class="python-exec"><code class="language-python">print(models.get_user_model().objects.filter(student__score=17))
+print(models.Professor.objects.filter(students__score=17))
+</code></pre>
+
+
+                                        <h4>Models.py</h4>
+                                        <pre class="python-exec"><code class="language-python">from dataclasses import field
+from operator import mod
+from pyexpat import model
+from statistics import mode
+from tkinter import CASCADE
+from django.db import models
+from django.contrib.auth import get_user_model
+
+# Create your models here.
+
+
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
+
+from users.managers import CustomUserManager
+
+class CustomUser(AbstractBaseUser, PermissionsMixin):
+
+    phone = models.CharField(max_length=11, unique=True)
+    email = models.EmailField(_('email address'), unique=True)
+    username = models.CharField(max_length=100, unique=True)
+    firstname = models.CharField(max_length=100)
+    lastname = models.CharField(max_length=100)
+    national_code = models.CharField(max_length=10)
+    
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    date_joined = models.DateTimeField(default=timezone.now)
+
+    USERNAME_FIELD = 'phone'
+    REQUIRED_FIELDS = ['username','email','firstname', 'lastname', 'national_code']
+
+    objects = CustomUserManager()
+
+    def __str__(self):
+        return self.phone
+
+class Department(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+class Employee(models.Model):
+    class Meta:
+        abstract = True
+
+    salary = models.IntegerField()
+    Department = models.ManyToManyField(Department,related_name='employee_department')
+
+
+class Professor(Employee):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+class Student(models.Model):
+    
+    user = models.OneToOneField(CustomUser,
+        on_delete=models.CASCADE, primary_key=True)
+
+    score = models.IntegerField(default=20)
+
+    department = models.ForeignKey(Department, on_delete=models.CASCADE,related_name='students')
+    professor = models.ManyToManyField(Professor, related_name='students')
+    IT = "INFORMATION TECHNOLOGY"
+    MATH = "MATHEMATICS"
+    ART = "ART"
+    EE = "ELECTRONIC ENGINEERING"
+    CS = "COMPUTER SCIENCE"
+
+    STUDY_FIELD_CHOICES =(
+        (IT, "Information Technology"),
+        (MATH, "Mathematics"),
+        (ART, "Art"),
+        (EE, "Electronic Engineering"),
+        (CS, "Computer Science"),
+    )
+
+    field = models.CharField(choices=STUDY_FIELD_CHOICES,
+                            max_length=100,
+                            default=IT)
+
+    def __str__(self):
+        return (get_user_model().objects.get(id=self.user.id).firstname)
+
+    def __repr__(self):
+        return (get_user_model().objects.get(id=self.user.id).firstname)
+
+
+class Project(models.Model):
+    name = models.CharField(max_length=150)
+    des = models.CharField(max_length=2000)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='student_projects')
+
+    def __str__(self):
+        return f'{self.name} , {self.student}'
+
+
+    
+</code></pre>
+
+
+
+                                        <h4>Reference</h4>
+                                        <p>built-in model methods that return QuerySets</p>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Method</th>
+                                                    <th>Description</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><code>filter()</code></td>
+                                                    <td>Filter by the given lookup parameters. Multiple parameters are
+                                                        joined by SQL <code>AND</code> statements (See Chapter 4)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>exclude()</code></td>
+                                                    <td>Filter by objects that don’t match the given lookup parameters
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>annotate()</code></td>
+                                                    <td>Annotate each object in the QuerySet. Annotations can be simple
+                                                        values, a field reference or an aggregate expression</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>order_by()</code></td>
+                                                    <td>Change the default ordering of the QuerySet</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>reverse()</code></td>
+                                                    <td>Reverse the default ordering of the QuerySet</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>distinct()</code></td>
+                                                    <td>Perform an SQL <code>SELECT DISTINCT</code> query to eliminate
+                                                        duplicate rows</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>values()</code></td>
+                                                    <td>Returns dictionaries instead of model instances</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>values_list()</code></td>
+                                                    <td>Returns tuples instead of model instances</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>dates()</code></td>
+                                                    <td>Returns a QuerySet containing all available dates in the
+                                                        specified date range</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>datetimes()</code></td>
+                                                    <td>Returns a QuerySet containing all available dates in the
+                                                        specified date and time range</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>none()</code></td>
+                                                    <td>Create an empty QuerySet</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>all()</code></td>
+                                                    <td>Return a copy of the current QuerySet</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>union()</code></td>
+                                                    <td>Use the SQL <code>UNION</code> operator to combine two or more
+                                                        QuerySets</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>intersection()</code></td>
+                                                    <td>Use the SQL <code>INTERSECT</code> operator to return the shared
+                                                        elements of two or more QuerySets</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>difference()</code></td>
+                                                    <td>Use the SQL <code>EXCEPT</code> operator to return elements in
+                                                        the first QuerySet that are not in the others</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>select_related()</code></td>
+                                                    <td>Select all related data when executing the query (except
+                                                        many-to-many relationships)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>prefetch_related()</code></td>
+                                                    <td>Select all related data when executing the query (including
+                                                        many-to-many relationships)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>defer()</code></td>
+                                                    <td>Do not retrieve the named fields from the database. Used to
+                                                        improve query performance on complex datasets</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>only()</code></td>
+                                                    <td>Opposite of <code>defer()</code>—return only the named fields
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>using()</code></td>
+                                                    <td>Select which database the QuerySet will be evaluated against
+                                                        (when using multiple databases)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>select_for_update()</code></td>
+                                                    <td>Return a QuerySet and lock table rows until the end of the
+                                                        transaction</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>raw()</code></td>
+                                                    <td>Execute a raw SQL statement</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>AND (&amp;)</code></td>
+                                                    <td>Combine two QuerySets with the SQL <code>AND</code> operator.
+                                                        Using <code>AND (&amp;)</code> is functionally equivalent to
+                                                        using <code>filter()</code> with multiple parameters</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>OR (|)</code></td>
+                                                    <td>Combine two QuerySets with the SQL <code>OR</code> operator</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <p>built-in model methods that don’t return QuerySets</p>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Method</th>
+                                                    <th>Description</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><code>get()</code></td>
+                                                    <td>Returns a single object. Throws an error if lookup returns
+                                                        multiple objects</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>create()</code></td>
+                                                    <td>Shortcut method to create and save an object in one step</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>get_or_create()</code></td>
+                                                    <td>Returns a single object. If the object doesn’t exist, it creates
+                                                        one</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>update_or_create()</code></td>
+                                                    <td>Updates a single object. If the object doesn’t exist, it creates
+                                                        one</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>bulk_create()</code></td>
+                                                    <td>Insert a list of objects in the database</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>bulk_update()</code></td>
+                                                    <td>Update given fields in the listed model instances</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>count()</code></td>
+                                                    <td>Count the number of objects in the returned QuerySet. Returns an
+                                                        integer</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>in_bulk()</code></td>
+                                                    <td>Return a QuerySet containing all objects with the listed IDs
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>iterator()</code></td>
+                                                    <td>Evaluate a QuerySet and return an iterator over the results. Can
+                                                        improve performance and memory use for queries that return a
+                                                        large number of objects</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>latest()</code></td>
+                                                    <td>Return the latest object in the database table based on the
+                                                        given field(s)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>earliest()</code></td>
+                                                    <td>Return the earliest object in the database table based on the
+                                                        given field(s)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>first()</code></td>
+                                                    <td>Return the first object matched by the QuerySet</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>last()</code></td>
+                                                    <td>Return the last object matched by the QuerySet</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>aggregate()</code></td>
+                                                    <td>Return a dictionary of aggregate values calculated over the
+                                                        QuerySet</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>exists()</code></td>
+                                                    <td>Returns <code>True</code> if the QuerySet contains any results
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>update()</code></td>
+                                                    <td>Performs an SQL <code>UPDATE</code> on the specified field(s)
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>delete()</code></td>
+                                                    <td>Performs an SQL <code>DELETE</code> that deletes all rows in the
+                                                        QuerySet</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>as_manager()</code></td>
+                                                    <td>Return a <code>Manager</code> class instance containing a copy
+                                                        of the QuerySet’s methods</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>explain()</code></td>
+                                                    <td>Returns a string of the QuerySet’s execution plan. Used for
+                                                        analyzing query performance</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <p>field lookups</p>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Filter</th>
+                                                    <th>Description</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><code>exact</code>/<code>iexact</code></td>
+                                                    <td>Exact match. <code>iexact</code> is the case-insensitive version
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>contains</code>/<code>icontains</code></td>
+                                                    <td>Field contains search text. <code>icontains</code> is the
+                                                        case-insensitive version</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>in</code></td>
+                                                    <td>In a given iterable (list, tuple or QuerySet)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>gt</code>/<code>gte</code></td>
+                                                    <td>Greater than/greater than or equal</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>lt</code>/<code>lte</code></td>
+                                                    <td>Less than/less than or equal</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>startswith</code>/<code>istartswith</code></td>
+                                                    <td>Starts with search string. <code>istartswith</code> is the
+                                                        case-insensitive version</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>endswith</code>/<code>iendswith</code></td>
+                                                    <td>Ends with search string. <code>iendswith</code> is the
+                                                        case-insensitive version</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>range</code></td>
+                                                    <td>Range test. Range includes start and finish values</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>date</code></td>
+                                                    <td>Casts the value as a date. Used for datetime field lookups</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>year</code></td>
+                                                    <td>Searches for an exact year match</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>iso_year</code></td>
+                                                    <td>Searches for an exact ISO 8601 year match</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>month</code></td>
+                                                    <td>Searches for an exact month match</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>day</code></td>
+                                                    <td>Searches for an exact day match</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>week</code></td>
+                                                    <td>Searches for an exact week match</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>week_day</code></td>
+                                                    <td>Searches for an exact day of the week match</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>quarter</code></td>
+                                                    <td>Searches for an exact quarter of the year match. Valid integer
+                                                        range: 1–4</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>time</code></td>
+                                                    <td>Casts the value as a time. Used for <code>datetime</code> field
+                                                        lookups</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>hour</code></td>
+                                                    <td>Searches for an exact hour match</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>minute</code></td>
+                                                    <td>Searches for an exact minute match</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>second</code></td>
+                                                    <td>Searches for an exact second match</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>isnull</code></td>
+                                                    <td>Checks if field is null. Returns <code>True</code> or
+                                                        <code>False</code></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>regex</code>/<code>iregex</code></td>
+                                                    <td>Regular expression match. <code>iregex</code> is the
+                                                        case-insensitive version</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingFour">
@@ -141,7 +950,9 @@
                                             they receive request and see how the user status is, and based on that
                                             observation they decide what
                                             do, logging in, force logout, etc. <strong>
-                                                middlewares take incoming request, work on it, validate it and pass it to next, until last one passes it to view and view passes the response to the last middleware and it goes reverse until firstmiddleware
+                                                middlewares take incoming request, work on it, validate it and pass it
+                                                to next, until last one passes it to view and view passes the response
+                                                to the last middleware and it goes reverse until firstmiddleware
                                             </strong>
                                         </p>
 
@@ -170,8 +981,13 @@
                                                 HttpRequest object. exception is an Exception object raised by the view
                                                 function. This method is called when the view raises an exception.</li>
                                         </ul>
-                                        
-                                        <small><p class="text-danger"><i>New-style middleware does not call process_request and process_response by default. This functionally has been replaced with _call_ and the get_response function that is passed to _init_.</i></p></small>
+
+                                        <small>
+                                            <p class="text-danger"><i>New-style middleware does not call process_request
+                                                    and process_response by default. This functionally has been replaced
+                                                    with _call_ and the get_response function that is passed to
+                                                    _init_.</i></p>
+                                        </small>
 
                                         <h4>Custom middleware in django</h4>
                                         <p>
@@ -232,8 +1048,8 @@
     'path.to.your.middleware.CustomMiddleware',
 ]</code></pre>
 
-<p>A self-written example:</p>
-<pre class="python-exec"><code class="language-python">from django.conf import settings
+                                        <p>A self-written example:</p>
+                                        <pre class="python-exec"><code class="language-python">from django.conf import settings
 
 class SimpleMiddleware:
 
@@ -276,6 +1092,44 @@ class SimpleMiddleware:
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingLoadingDjango">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseLoadingDjango" aria-expanded="false"
+                                        aria-controls="collapseLoadingDjango">
+                                        Loading
+                                    </button>
+                                </h2>
+                                <div id="collapseLoadingDjango" class="accordion-collapse collapse"
+                                    aria-labelledby="headingLoadingDjango" data-bs-parent="#accordionDjango">
+                                    <div class="accordion-body" style="text-align: justify ;">
+                                        <ul>
+                                            <li>django rest framework and token auth jwt</li>
+                                            <li>understanding django sessoin and cookies </li>
+                                            <li>understanding meta</li>
+                                            <li>ccbv</li>
+                                            <li>dispatch</li>
+                                            <li>-----------------------</li>
+                                            <li>redis</li>
+                                            <li>celery</li>
+                                            <li>rabbit mq</li>
+                                            <li>docker </li>
+                                            <li>ci di</li>
+                                            <li>-----------------------</li>
+                                            <li>Abstract, proxy, multitable inheritance</li>
+                                            <li>id vs pk</li>
+                                            <li>repr vs str</li>
+                                            <li>Generic foreign key</li>
+                                            <li>next url</li>
+                                            <li>slug</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
                         </div>
                         <!-- #################################################### -->
                     </div>
