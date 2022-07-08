@@ -117,6 +117,303 @@
                             </div> -->
 
                             <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingRedis">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseRedis" aria-expanded="false"
+                                        aria-controls="collapseRedis">
+                                        Redis
+                                    </button>
+                                </h2>
+                                <div id="collapseRedis" class="accordion-collapse collapse" aria-labelledby="headingRedis"
+                                    data-bs-parent="#accordionDjango">
+                                    <div class="accordion-body" style="text-align: justify ;">
+<h4>What is redis</h4>
+<p>Redis is an in-memory data structure store that can be used as a caching engine. Since it keeps data in RAM, Redis can deliver it very quickly. Redis is not the only product that we can use for caching. Memcached is another popular in-memory caching system, but many people agree that Redis is superior to Memcached in most circumstances. Personally, we like how easy it is to set up and use Redis for other purposes such as Redis Queue.</p>
+<pre class="python-exec"><code class="language-python"># install redis on ubuntu
+$ sudo apt install redis
+
+# start redis server
+$ redis-server
+
+# test if redis is up and running by it's CLI
+$ redis-cli
+127.0.0.1:6379> ping
+PONG</code></pre>
+
+<p>settings.py</p>
+<pre class="python-exec"><code class="language-python">CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+        },
+        "KEY_PREFIX": "example"
+    }
+}
+
+
+# Cache time to live is 15 minutes.
+CACHE_TTL = 60 * 15
+</code></pre>
+
+
+<p>views.py</p>
+<pre class="python-exec"><code class="language-python">from django.conf import settings
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
+from django.views.decorators.cache import cache_page
+
+CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
+
+@cache_page(CACHE_TTL)
+def index(request):
+    print('here the page will be cached...')
+    data = models.Student.objects.all().prefetch_related('professor')
+    return render(request,'index.html',{'data':data})
+</code></pre>
+
+<p>By doing works mentioned above in <span class="text-info">Django Debug Toolbar</span> we will see that after
+adding redis no sql intraction will be made to server, because the data is cached now.
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingCelery">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseCelery" aria-expanded="false"
+                                        aria-controls="collapseCelery">
+                                        Celery using Rabbitmq
+                                    </button>
+                                </h2>
+                                <div id="collapseCelery" class="accordion-collapse collapse" aria-labelledby="headingCelery"
+                                    data-bs-parent="#accordionDjango">
+                                    <div class="accordion-body" style="text-align: justify ;">
+                                        <p>
+                                            Task queues are used as a mechanism to distribute work across threads or machines.
+
+A task queue’s input is a unit of work called a task. Dedicated worker processes constantly monitor task queues for new work to perform.
+
+Celery communicates via messages, usually using a broker to mediate between clients and workers. To initiate a task the client adds a message to the queue, the broker then delivers that message to a worker.
+
+A Celery system can consist of multiple workers and brokers, giving way to high availability and horizontal scaling.
+                                        </p>
+<h4>Installations</h4>
+<pre class="python-exec"><code class="language-python"># install RabbitMQ
+$ sudo apt-get install rabbitmq-server
+
+# start server RabbitMQ
+$ sudo systemctl enable rabbitmq-server
+$ sudo systemctl start rabbitmq-server
+
+# check Installation of RabbitMQ
+$ sudo systemctl status rabbitmq-server
+
+# install celery
+(venv) $ pip install Celery
+</code></pre>
+
+<h4>Integrating Django with Celery</h4>
+<p>In order to use Celery with the Django application, we need to define a Celery instance. To do that, create a new file called celery.py where settings.py is located and add the following code:</p>
+<pre class="python-exec"><code class="language-python"># mysite/celery.py
+import os
+
+from celery import Celery
+
+# Set the default Django settings module for the 'celery' program.
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysite.settings')
+
+app = Celery('mysite')
+
+# Using a string here means the worker doesn't have to serialize
+# the configuration object to child processes.
+# - namespace='CELERY' means all celery-related configuration keys
+#   should have a `CELERY_` prefix.
+app.config_from_object('django.conf:settings', namespace='CELERY')
+
+# Load task modules from all registered Django apps.
+app.autodiscover_tasks()</code></pre>
+<p>To ensure the app is loaded when Django starts, we need to import the Celery app we defined above in mysite/__init__.py:</p>
+<pre class="python-exec"><code class="language-python"># mysite/__init__.py
+# This will make sure the app is always imported when
+# Django starts so that shared_task will use this app.
+from .celery import app as celery_app
+
+__all__ = ('celery_app',)</code></pre>
+<p>Celery uses by default RabbitMQ as the message broker. If you prefer to specify it explicitly, put the following in your settings.py file:</p>
+<pre class="python-exec"><code class="language-python">CELERY_BROKER_URL = 'amqp://localhost'
+# if you are usign redis just write:
+CELERY_BROKER_URL = 'redis://localhost:6379/'
+# Celery will find where the broker is running by using this URL.
+</code></pre>
+<p>Now create a new file named tasks.py inside the core app and add the following task:</p>
+<pre class="python-exec"><code class="language-python"># core/tasks.py
+from celery import shared_task
+
+@shared_task
+def add(x, y):
+    return x + y</code></pre>
+<p>running workers: to run the worker process we can use the celery worker command with the -A flag to specify the Celery application:</p>
+<pre class="python-exec"><code class="language-python">(venv) $ celery -A mysite worker -l info</code></pre>
+<p>
+-l info makes the logging more verbose. You can make it even more verbose using the debug option. 
+To run the task asynchronously we can use the delay() method:
+The delay() method is a shortcut to apply_async() method, which can be used as follows:
+</p>
+<pre class="python-exec"><code class="language-python">(venv) $ python manage.py shell
+>>> from core.tasks import add
+>>> add.delay(5, 5)
+&#60;AsyncResult: 5fe054d6-58cd-488a-9781-89604f691b8b>/code>
+
+# or
+
+>>> add.apply_async((5, 5))
+&#60;AsyncResult: ec29c201-8d1f-4643-974b-09cfdd41862d>
+
+
+# The apply_async() gives us more control over how to execute the task. 
+# For example, we can use the countdown option to run the task at some point in the future:
+
+>>> add.apply_async((5, 5), countdown=60)
+</pre></code>
+<h4>Sending Asynchronous Emails with Celery</h4>
+<p> forms.py inside the core application</p>
+<pre class="python-exec"><code class="language-python"># core/forms.py
+from django import forms
+
+class SendEmailForm(forms.Form):
+    email = forms.EmailField()</code></pre>
+<p>index.html file:</p>
+
+
+
+
+<pre class="python-exec"><code class="language-python">&#60;!-- core/templates/index.html -->
+&#60;!doctype html>
+&#60;html lang="en">
+    &#60;head>
+    &#60;!-- Required meta tags -->
+    &#60;meta charset="utf-8">
+    &#60;meta name="viewport" content="width=device-width, initial-scale=1">
+
+    &#60;!-- Bootstrap CSS -->
+    &#60;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    &#60;title>Django Celery&#60;/title>
+    &#60;/head>
+    &#60;body>
+    &#60;div class="container mt-5">
+        &#60;form method='post'>
+        {% csrf_token %}
+        &#60;p>Send email to: &#60;input type="text" name="email" class="form-control" id="id_email" placeholder="Email">&#60;/p>
+        &#60;button type="submit" class="btn btn-primary">Send&#60;/button>
+        &#60;/form>
+    &#60;/div>
+    &#60;/body>
+&#60;/html></code></pre>
+
+<p>settings.py</p>
+<pre class="python-exec"><code class="language-python">EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'</code></pre>
+
+<p> views.py</p>
+<pre class="python-exec"><code class="language-python">from django.shortcuts import render
+# core/views.py
+from django.shortcuts import render
+
+from .forms import SendEmailForm
+from app1.tasks import send_email_task # we will define this function later
+
+
+def index(request):
+    if request.method == "GET":
+            return render(request, 'app1/index.html', {'form':{}})
+    if request.method == 'POST':
+        form = SendEmailForm(request.POST)
+        if form.is_valid():            
+            email = form.cleaned_data['email']
+            send_email_task.delay(email)
+            print('************************************')
+            return render(request, 'index.html', {'form': form})
+            
+
+    form = SendEmailForm()
+    return render(request, 'app1/index.html', {'form': form})</code></pre>
+
+<p>urls.py</p>
+<pre class="python-exec"><code class="language-python"># mysite/urls.py
+from django.contrib import admin
+from django.urls import path
+
+from app1.views import index # add this
+
+urlpatterns = [
+    path('', index, name='send_email') # add this
+]</code></pre>
+
+
+<p>tasks.py</p>
+<pre class="python-exec"><code class="language-python">from celery import shared_task
+
+@shared_task
+def add(x, y):
+return x + y
+
+
+import time
+from celery import shared_task
+
+from django.core.mail import send_mail
+
+@shared_task
+def send_email_task(email):
+"background task to send an email asynchronously"
+subject = 'Helo from Celery'
+message = 'This is a test email sent asynchronously with Celery.'
+
+time.sleep(5)
+# return send_mail(
+#     subject,
+#     message,
+#     'alfabravo318@gmail.com',
+#     [email],
+#     fail_silently=False
+# )
+print(f'mail with subject {subject} is sent')</code></pre>
+
+<h4>Extra</h4>
+<small>                                        <a target="_blank" href="https://buildwithdjango.com/blog/post/celery-progress-bars/">Celery with progress bar</a>
+</small>
+
+
+
+
+
+
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingHTTP">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseHTTP" aria-expanded="false"
@@ -273,7 +570,6 @@ src="img/HttpRequestHeaders.JPG" alt="">
                                     </div>
                                 </div>
                             </div>
-
 
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingSessoinAndCookie">
@@ -434,7 +730,6 @@ del request.session['user_id']</code></pre>
                                 </div>
                             </div>
 
-
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingCycle">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -451,7 +746,6 @@ del request.session['user_id']</code></pre>
                                     </div>
                                 </div>
                             </div>
-
 
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingSignals">
@@ -573,7 +867,6 @@ class="python-exec"><code class="language-python">default_app_config = 'users.ap
                                     </div>
                                 </div>
                             </div>
-
 
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingORM">
@@ -1431,13 +1724,10 @@ class SimpleMiddleware:
                                     <div class="accordion-body" style="text-align: justify ;">
                                         <ul>
                                             <li>django rest framework and token auth jwt</li>
-                                            <li>redis</li>
-                                            <li>celery</li>
-                                            <li>rabbit mq</li>
                                             <li>docker </li>
                                             <li>ci di</li>
                                             <div style="display:none;">
-                                                <li>Abstract, proxy, multitable inheritance</li>
+                                                <li>Abstract, proxy</li>
                                                 <li>id vs pk</li>
                                                 <li>repr vs str</li>
                                                 <li>Generic foreign key</li>
