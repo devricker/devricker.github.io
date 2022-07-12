@@ -1195,6 +1195,25 @@ class Project(models.Model):
 </code></pre>
 
 
+<h4>id vs pk</h4>
+<p>pk is the attribute that contains the value of the primary key for the model. id is the name of the 
+field created as a primary key by default if none is explicitly specified.
+pk is more independent from the actual primary key field i.e. you don't need to care 
+whether the primary key field is called id or object_id or whatever. It also provides 
+more consistency if you have models with different primary key fields.</p>
+
+<h4>__str__ vs __repr__</h4>
+<p>
+    The str() function returns a user-friendly description of an object while the repr() method returns a developer-friendly string representation of an object.
+</p>
+<pre class="python-exec"><code class="language-python">import datetime
+today = datetime.datetime.now()
+print(str(today))
+print(repr(today))
+
+# 2021-10-14 10:15:31.405463
+# datetime.datetime(2021, 10, 14, 10, 15, 31, 405463)</code></pre>
+
 
                                         <h4>Reference</h4>
                                         <p>built-in model methods that return QuerySets</p>
@@ -1712,29 +1731,171 @@ class SimpleMiddleware:
                             </div>
 
                             <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingDocker">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseDocker" aria-expanded="false"
+                                        aria-controls="collapseDocker">
+                                        Docker (only concepts!)
+                                    </button>
+                                </h2>
+                                <div id="collapseDocker" class="accordion-collapse collapse" aria-labelledby="headingDocker"
+                                    data-bs-parent="#accordionDjango">
+                                    <div class="accordion-body" style="text-align: justify ;">
+                                        <h4>Docker</h4>
+<p>Docker, a subset of the Moby project, is a software framework for building, running, and managing containers on servers and the cloud. The term "docker" may refer to either the tools (the commands and a daemon) or to the Dockerfile file format.
+
+    It used to be that when you wanted to run a web application, you bought a server, installed Linux, set up a LAMP stack, and ran the app. If your app got popular, you practiced good load balancing by setting up a second server to ensure the application wouldn't crash from too much traffic.
+    
+    Times have changed, though, and instead of focusing on single servers, the Internet is built upon arrays of inter-dependent and redundant servers in a system commonly called "the cloud". Thanks to innovations like Linux kernel namespaces and cgroups, the concept of a server could be removed from the constraints of hardware and instead became, essentially, a piece of software. These software-based servers are called containers, and they're a hybrid mix of the Linux OS they're running on plus a hyper-localized runtime environment (the contents of the container).</p>
+<h4>Docker vs VM</h4>
+<p>VMware emulates machine hardware whereas Docker emulates the operating system in which your application runs. Docker is a much more lightweight virtualization technology since it does not have to emulate server hardware resources.</p>
+<h4>Docker vs Virtual environment</h4>
+<p>A virtualenv only encapsulates Python dependencies. A Docker container encapsulates an entire OS.
+With a Python virtualenv, you can easily switch between Python versions and dependencies, but you're stuck with your host OS.
+With a Docker image, you can swap out the entire OS - install and run Python on Ubuntu, Debian, Alpine, even Windows Server Core.</p>
+<h4>All Starts with a Dockerfile</h4>
+<p>
+    A Dockerfile is a file that you create which in turn produces a Docker image when you build it.
+
+    Just by breaking down that sentence we can start making a few assumptions, such as:
+    
+
+    <ul>
+        <li> A Docker image can be created by taking 2 actions</li>
+
+        <ul>
+            <li>
+                The first action is to create a thing called a Dockerfile
+            </li>
+            <li>
+                The second action is to run some type of build command that uses the Dockerfile 
+            </li>
+        </ul>
+
+        <li>A Docker image is a file or file-like thing, since it gets “built”</li>
+    </ul>
+
+       
+            
+            
+        
+    
+    Those assumptions are correct, but let’s put them on the back burner for now and talk a little bit more about the Dockerfile.
+
+    A Dockerfile is a text file that Docker reads in from top to bottom. It contains a bunch of instructions which informs Docker HOW the Docker image should get built.
+    
+    You can relate it to cooking. In cooking you have recipes. A recipe lets you know all of the steps you must take in order to produce whatever you’re trying to cook.
+    
+    The act of cooking is building the recipe.
+    
+    A Dockerfile is a recipe (or blueprint if that helps) for building Docker images, and the act of running a separate build command produces the Docker image from that recipe.
+        
+</p>
+<h4>If You Build It, They Will Run (Usually)</h4>
+<p>The act of running a Docker image creates a Docker container, that’s it.
+
+    Here’s an easy thing to relate to if you’re a software developer:
+    
+    In the world of object oriented programming, you often deal with classes. You can think of a Docker image as a class, where as a Docker container is an instance of that class.
+    
+    Personally I’m not a fan of that analogy because it’s not the most accurate thing in the world but sometimes having a “good enough” relation is enough to grasp something and that analogy is definitely “good enough”.
+    <br><strong>So at the end of the day, we can sum things up as:</strong>
+    <ul>
+        <li>A Dockerfile is a recipe for creating Docker images</li>
+        <li>A Docker image gets built by running a Docker command (which uses that Dockerfile)</li>
+        <li>A Docker container is a running instance of a Docker image</li>        
+    </ul>
+    </p>
+
+   <h4>Docker Daemon</h4>
+<p>The Docker Daemon runs on your host operating system. This is typically your main computer or a server on the cloud. It currently only runs on Linux but there are ways to run Docker on MacOS and Windows too.
+
+    You can think of this as a service that runs in the background. It is the brains of the operation when it comes to managing Docker containers.
+    
+    <br>
+    <strong>Use case:</strong>
+    Provides core Docker functionality. It must be running on every host you plan to run Docker on.
+    </p>
+
+
+
+    <h4>Docker CLI</h4>
+<p>
+    The Docker CLI is one way to interact with the Docker Daemon. The Docker Daemon exposes an API and the Docker CLI is one tool you can use to consume that API.
+    
+    It’s imperative that you understand how to use the Docker CLI, but in your day to day activities you’ll likely use another tool called Docker Compose, but that requires knowing how the Docker CLI works.
+<br>
+<strong>Use case:</strong>
+When you want to CRUD (create, read, update, destroy) various components of Docker, such as your Docker images, containers, networks and volumes.
+</p>
+
+
+<h4>Docker Compose</h4>
+<p>
+    
+Docker Compose is a quality of life improvement tool over the Docker CLI but still uses the Docker CLI under the hood. It lets you declare Docker CLI commands in the form of YAML and has its own CLI which lets you easily manage 1 or more Docker containers.
+<br>
+<strong>Use case:</strong>
+It lets you quickly spin up and destroy 1 or many containers. It is what you’ll use in your day to day in development, CI and in some cases even production.
+
+I say “some cases” for production because while Docker Compose is excellent for single server deploys, it’s not really meant for multi-host deploys, however the tool that is aimed at multi-host deploys uses a compatible version of Docker Compose’s YAML file.
+</p>
+
+
+
+<h4>Docker Hub / Store</h4>
+<p>
+    
+The Docker Hub and Docker Store are websites you can visit to find Docker images and even store your own (both publicly and privately). The Docker Store offers a bit more than just Docker images too, such as plugins, various Docker installation binaries and lists any paid services you subscribe to.
+<br>
+<strong>Use case:</strong>
+If you’re looking for nginx, PostgreSQL or hundreds of other Dockerized services, then the Docker Hub is where you’ll want to start.
+
+You can also push and pull your own Docker images, and sync up builds to GitHub / BitBucket so it works great for helping you distribute your custom Docker images to your servers.
+
+</p>
+
+
+<!-- <hr>
+
+<h4>Dockerizing Django with Postgres, Redis and Celery</h4> -->
+
+
+
+    
+
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingLoadingDjango">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseLoadingDjango" aria-expanded="false"
                                         aria-controls="collapseLoadingDjango">
-                                        Loading
+                                        Django REST Framework
                                     </button>
                                 </h2>
                                 <div id="collapseLoadingDjango" class="accordion-collapse collapse"
                                     aria-labelledby="headingLoadingDjango" data-bs-parent="#accordionDjango">
                                     <div class="accordion-body" style="text-align: justify ;">
-                                        <ul>
+
+                                        <a class="text-primary" target="_blank" href="https://www.django-rest-framework.org/">Django REST Framework</a>
+                                        <!-- <ul>
                                             <li>django rest framework and token auth jwt</li>
-                                            <li>docker </li>
-                                            <li>ci di</li>
+
+
                                             <div style="display:none;">
                                                 <li>Abstract, proxy</li>
-                                                <li>id vs pk</li>
-                                                <li>repr vs str</li>
                                                 <li>Generic foreign key</li>
                                                 <li>next url</li>
                                                 <li>slug</li>
                                             </div>
-                                        </ul>
+                                        </ul> -->
                                     </div>
                                 </div>
                             </div>
@@ -3542,7 +3703,215 @@ if (
                                 </div>
                             </div>
 
+
                             <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingMulti">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseMulti" aria-expanded="false"
+                                        aria-controls="collapseMulti">
+                                        Multiprocessing and Multithreading
+                                    </button>
+                                </h2>
+                                <div id="collapseMulti" class="accordion-collapse collapse" aria-labelledby="headingMulti"
+                                    data-bs-parent="#accordionPython">
+                                    <div class="accordion-body" style="text-align: justify ;">
+<p class="text-primary">Bottomline: Multithreading for IO-bound tasks. Multiprocessing for CPU-bound tasks.</p>
+<ul><li>A <strong>program</strong> is an executable file which consists of a set of instructions to perform some task and is usually stored on the disk of your computer.</li><li>A <strong>process</strong> is what we call a program that has been loaded into memory along with all the resources it needs to operate. It has its own memory space.</li><li>A <strong>thread</strong> is the unit of execution within a process. A process can have multiple threads running as a part of it, where each thread uses the process’s memory space and shares it with other threads.</li><li><strong>Multithreading</strong> is a technique where multiple threads are spawned by a process to do different tasks, at about the same time, just one after the other. This gives you the illusion that the threads are running in parallel, but they are actually run in a concurrent manner. In Python, the Global Interpreter Lock (GIL) prevents the threads from running simultaneously.</li><li><strong>Multiprocessing</strong> is a technique where parallelism in its truest form is achieved. Multiple processes are run across multiple CPU cores, which do not share the resources among them. Each process can have many threads running in its own memory space. In Python, each process has its own instance of Python interpreter doing the job of executing the instructions.</li></ul>
+<p>Now, let’s jump into the program where we try to execute two different types of functions: IO-bound and CPU-bound in six different ways. Inside the IO-bound function, we ask the CPU to sit idle and pass time whereas, inside the CPU-bound function, the CPU is going to be busy churning out a few numbers.</p>
+<p>Below is the structure of our program, which will be common across all the six parts. In the place where it is mentioned # YOUR CODE SNIPPET HERE, replace it with the code snippet of each part as you go.</p>
+<pre class="python-exec"><code class="language-python">import time, os
+from threading import Thread, current_thread
+from multiprocessing import Process, current_process
+
+
+COUNT = 200000000
+SLEEP = 10
+
+def io_bound(sec):
+
+    pid = os.getpid()
+    threadName = current_thread().name
+    processName = current_process().name
+
+    print(f"{pid} * {processName} * {threadName} \
+        ---> Start sleeping...")
+    time.sleep(sec)
+    print(f"{pid} * {processName} * {threadName} \
+        ---> Finished sleeping...")
+
+def cpu_bound(n):
+
+    pid = os.getpid()
+    threadName = current_thread().name
+    processName = current_process().name
+
+    print(f"{pid} * {processName} * {threadName} \
+        ---> Start counting...")
+
+    while n>0:
+        n -= 1
+
+    print(f"{pid} * {processName} * {threadName} \
+        ---> Finished counting...")
+
+if __name__=="__main__":
+    start = time.time()
+
+    # YOUR CODE SNIPPET HERE
+
+    end = time.time()
+    print('Time taken in seconds -', end - start)
+</code></pre>
+<h4>Part 1: Running IO-bound task twice, one after the other</h4>
+<p>Here, we ask our CPU to execute the function io_bound(), which takes in an integer (10, here) as a parameter and asks the CPU to sleep for that many seconds. This execution takes a total of 20 seconds, as each function execution takes 10 seconds to complete. Note that, it is the same MainProcess that calls our function twice, one after the other, using its default thread, MainThread.
+
+</p>
+<pre class="python-exec"><code class="language-python"># Code snippet for Part 1
+io_bound(SLEEP)
+io_bound(SLEEP)
+
+# 632 * MainProcess * MainThread          ---> Start sleeping...
+# 632 * MainProcess * MainThread          ---> Finished sleeping...
+# 632 * MainProcess * MainThread          ---> Start sleeping...
+# 632 * MainProcess * MainThread          ---> Finished sleeping...
+# Time taken in seconds - 20.02080512046814
+</code></pre>
+
+<h4>Part 2: Using threading to run the IO-bound tasks</h4>
+<p>Here, let’s use threading in Python to speed up the execution of the functions. The threads Thread-1 and Thread-2 are started by our MainProcess, each of which calls our function, at almost the same time. Both the threads complete their job of sleeping for 10 seconds, concurrently. This reduced the total execution time of our whole program by a significant 50%. Hence, multithreading is the go-to solution for executing tasks wherein the idle time of our CPU can be utilized to perform other tasks. Hence, saving time by making use of the wait time.</p>
+<pre class="python-exec"><code class="language-python"># Code snippet for Part 2
+t1 = Thread(target = io_bound, args =(SLEEP, ))
+t2 = Thread(target = io_bound, args =(SLEEP, ))
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+
+
+# 634 * MainProcess * Thread-1            ---> Start sleeping...
+# 634 * MainProcess * Thread-2            ---> Start sleeping...
+# 634 * MainProcess * Thread-1            ---> Finished sleeping...
+# 634 * MainProcess * Thread-2            ---> Finished sleeping...
+# Time taken in seconds - 10.0129234790802
+</code></pre>
+
+<h4>Part 3: Running CPU-bound task twice, one after the other</h4>
+<p>Here, we shall call our function cpu_bound(), which takes in a big number (200000000, here) as a parameter and decrements it at each step until it is zero. Our CPU is asked to do the countdown at each function call, which roughly takes around 12 seconds (this number might differ on your machine). Hence, the execution of the whole program took me about 26 seconds to complete. Note that it is once again our MainProcess calling the function twice, one after the other, in its default thread, MainThread.
+</p>
+<pre class="python-exec"><code class="language-python"># Code snippet for Part 3
+cpu_bound(COUNT)
+cpu_bound(COUNT)
+    
+
+# 638 * MainProcess * MainThread          ---> Start counting...
+# 638 * MainProcess * MainThread          ---> Finished counting...
+# 638 * MainProcess * MainThread          ---> Start counting...
+# 638 * MainProcess * MainThread          ---> Finished counting...
+# Time taken in seconds - 20.311151266098022
+</code></pre>
+
+<h4>Part 4: Can threading speed up our CPU-bound tasks?</h4>
+<p>Okay, we just proved that threading worked amazingly well for multiple IO-bound tasks. Let’s use the same approach for executing our CPU-bound tasks. Well, it did kick off our threads at the same time initially, but in the end, we see that the whole program execution took about a whopping 40 seconds! What just happened? This is because when Thread-1 started, it acquired the Global Interpreter Lock (GIL) which prevented Thread-2 to make use of the CPU. Hence, Thread-2 had to wait for Thread-1 to finish its task and release the lock so that it can acquire the lock and perform its task. This acquisition and release of the lock added overhead to the total execution time. Therefore, we can safely say that threading is not an ideal solution for tasks that requires CPU to work on something.
+</p>
+<pre class="python-exec"><code class="language-python"># Code snippet for Part 4
+t1 = Thread(target = cpu_bound, args =(COUNT, ))
+t2 = Thread(target = cpu_bound, args =(COUNT, ))
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+    
+
+# 640 * MainProcess * Thread-1            ---> Start counting...
+# 640 * MainProcess * Thread-2            ---> Start counting...
+# 640 * MainProcess * Thread-2            ---> Finished counting...
+# 640 * MainProcess * Thread-1            ---> Finished counting...
+# Time taken in seconds - 18.517231941223145
+</code></pre>
+
+<h4>Part 5: So, does splitting the tasks as separate processes work?</h4>
+<p>Let’s cut to the chase. Multiprocessing is the answer. Here the MainProcess spins up two subprocesses, having different PIDs, each of which does the job of decreasing the number to zero. Each process runs in parallel, making use of separate CPU core and its own instance of the Python interpreter, therefore the whole program execution took only 12 seconds. Note that the output might be printed in unordered fashion as the processes are independent of each other. Each process executes the function in its own default thread, MainThread. Open your Task Manager during the execution of your program. You can see 3 instances of the Python interpreter, one each for MainProcess, Process-1, and Process-2. You can also see that during the program execution, the Power Usage of the two subprocesses is “Very High”, as the task they are performing is actually taking a toll on their own CPU cores, as shown by the spikes in the CPU Performance graph.
+</p>
+<pre class="python-exec"><code class="language-python"># Code snippet for Part 5
+p1 = Process(target = cpu_bound, args =(COUNT, ))
+p2 = Process(target = cpu_bound, args =(COUNT, ))
+p1.start()
+p2.start()
+p1.join()
+p2.join()
+
+# 645 * Process-1 * MainThread            ---> Start counting...
+# 646 * Process-2 * MainThread            ---> Start counting...
+# 645 * Process-1 * MainThread            ---> Finished counting...
+# 646 * Process-2 * MainThread            ---> Finished counting...
+# Time taken in seconds - 12.775290966033936
+</code></pre>
+
+<h4>Part 6: Hey, lets use multiprocessing for our IO-bound tasks</h4>
+<p>Now that we got a fair idea about multiprocessing helping us achieve parallelism, we shall try to use this technique for running our IO-bound tasks. We do observe that the results are extraordinary, just as in the case of multithreading. Since the processes Process-1 and Process-2 are performing the task of asking their own CPU core to sit idle for a few seconds, we don’t find high Power Usage. But the creation of processes itself is a CPU heavy task and requires more time than the creation of threads. Also, processes require more resources than threads. Hence, it is always better to have multiprocessing as the second option for IO-bound tasks, with multithreading being the first.</p>
+<pre class="python-exec"><code class="language-python"># Code snippet for Part 6
+p1 = Process(target = io_bound, args =(SLEEP, ))
+p2 = Process(target = io_bound, args =(SLEEP, ))
+p1.start()
+p2.start()
+p1.join()
+p2.join()
+    
+
+# 649 * Process-1 * MainThread            ---> Start sleeping...
+# 650 * Process-2 * MainThread            ---> Start sleeping...
+# 649 * Process-1 * MainThread            ---> Finished sleeping...
+# 650 * Process-2 * MainThread            ---> Finished sleeping...
+# Time taken in seconds - 10.014960050582886
+</code></pre>
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingReadOnWeb">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseReadOnWeb" aria-expanded="false"
+                                        aria-controls="collapseReadOnWeb">
+                                        More on web
+                                    </button>
+                                </h2>
+                                <div id="collapseReadOnWeb" class="accordion-collapse collapse" aria-labelledby="headingReadOnWeb"
+                                    data-bs-parent="#accordionPython">
+                                    <div class="accordion-body" style="text-align: justify ;">
+                                        <a class="text-primary" target="_blank" href="https://www.programiz.com/python-programming/directory">Python Directory and Files Management</a>
+                                        <br>
+                                        <a class="text-primary" target="_blank" href="https://www.programiz.com/python-programming/file-operation">Python File I/O</a>
+                                        <br>
+                                        <a class="text-primary" target="_blank" href="https://www.w3schools.com/python/python_modules.asp">Python Modules</a> 
+                                        <br>
+                                        <a class="text-primary" target="_blank" href="https://www.w3schools.com/python/python_datetime.asp">Python DateTime</a>
+                                        <br>
+                                        <a class="text-primary" target="_blank" href="https://www.w3schools.com/python/python_regex.asp">Python Regex</a>
+                                        <br>
+                                        <hr>
+                                        <a class="text-primary" target="_blank" href="https://realpython.com/python-kwargs-and-args/">*args and **kwargs</a>
+                                        <br>
+                                        <a class="text-primary" target="_blank" href="https://towardsdatascience.com/introduction-to-asynchronous-programming-in-python-3cd190748cd5">Asynchronous Programming in Python</a>
+                                        <br>
+                                        <a class="text-primary" target="_blank" href="https://refactoring.guru/design-patterns/python">Design Patterns in Python</a>
+                                        
+                                        
+                                        
+
+
+                                        
+                                        
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingLoading">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseLoading" aria-expanded="false"
@@ -3555,21 +3924,11 @@ if (
                                     <div class="accordion-body" style="text-align: justify ;">
                                         <ul>
                                             <div class="text-muted">
-
-                                                <li>*args and **kwargs</li>
-                                                <li>Rgex</li>
-                                                <li>Design patterns</li>
-                                                <li>Multiprocessing</li>
-                                                <li>Async programming and asyncio</li>
-                                                <li>Datetime</li>
-                                                <li>Files and directories</li>
-                                                <li>Python Modules</li>
-                                                
+                          
                                                 <div style="display:none;">
                                                     <li>Package</li>
                                                     <li>solid grasp</li>
                                                     <li>Context manager</li>
-                                                    <li>GIL and multithreadin</li>
                                                     <li>server</li>
                                                 </div>
                                             </div>
@@ -3577,7 +3936,7 @@ if (
 
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <!-- <div class="accordion-item">
                                 <h2 class="accordion-header" id="heading{{fillme}}">
@@ -3612,7 +3971,7 @@ if (
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapseOther" aria-expanded="false" aria-controls="collapseOther">
                         <h5>
-                            Other
+                            Skills
                         </h5>
                     </button>
                 </h2>
@@ -3643,7 +4002,55 @@ if (
                                     </div>
                                 </div>
                             </div> -->
-nothing to see yet :)
+                            <h4>Python</h4>
+                            <ul>
+                                <li>OOP</li>
+                                <li>Iterators</li>
+                                <li>Generators</li>
+                                <li>Decorators</li>
+                            </ul>
+                            <h4>Django</h4>
+                            <ul>
+                                <li>ORM</li>
+                                <li>Middlewares</li>
+                                <li>Signals</li>
+                                <li>Sessions and Cookies</li>
+                                <li>Redis</li>
+                                <li>Celery</li>
+                            </ul>
+                            <h4>Frontend</h4>
+                            <ul>
+                                <li>HTML 5</li>
+                                <li>CSS 3</li>
+                                <li>JavaScript</li>
+                                <li>jQuery</li>
+                                <li>Bootstrap 5</li>
+                            </ul>
+                            <h4>DataBase</h4>
+                            <ul>
+                                <li>SQL</li>
+                                <li>PostgreSQL</li>
+                            </ul>
+                            <h4>Other</h4>
+                            <ul>
+                                <li>Git</li>
+                                <li>Familiar with:</li>
+                                <ul>
+                                    <li>C++</li>
+                                    <li>Machine learning, sklearn, pandas, numpy</li>
+                                    <li>Data structure</li>
+                                    <li>Algorithm desing</li>
+                                    <li>Docker</li>
+                                    <li>NoSQL</li>
+                                    <li>Network for web and cisco</li>
+                                    <li>Software Engineering</li>
+                                    <li>AI</li>
+                                    <li>React-js</li>
+                                </ul>
+
+                            </ul>
+
+
 
 
 
