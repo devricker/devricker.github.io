@@ -31,13 +31,13 @@ header{
 
 .accordion-button:not(.collapsed) {
     color: #FFF;
-    /* background: linear-gradient(90deg,rgb(152, 226, 255), rgb(183, 235, 255)); */
     background: linear-gradient(90deg,rgb(41, 112, 255),rgb(130, 197, 255));
+
 }
 
 main>.accordion>.accordion-item>.accordion-header>.accordion-button:not(.collapsed){
     color: black;
-    /* background: linear-gradient(90deg,rgb(255, 162, 33), rgb(255, 202, 123)); */
+    /* background: linear-gradient(90deg,rgb(82, 255, 77), rgb(122, 255, 126)); */
     background: linear-gradient(90deg,rgb(152, 226, 255), rgb(183, 235, 255));
     
 }
@@ -66,7 +66,7 @@ main>.accordion>.accordion-item>.accordion-header>.accordion-button:not(.collaps
     /* line-height: 4rem; */
     height:4rem;
     text-transform: uppercase;
-    color: rgb(152, 226, 255);
+    color: rgb(65, 65, 65);
 }
 
 .text-blue{
